@@ -1,19 +1,33 @@
 #include "VMPCM.h"
+#include "PicardChebyshevDemo.h"
+#include <stdlib.h>
 
-double * vmpcm(double ode, double tau, double x_guess[], double omega1, double omega2, double errTol, double varargin){
-    double returnedArr[2];
-    //TODO check this value, probably it is x_guess[] entry parameter
-    double x_guess_var = 0.0;
-    double iter = 0.0;
+/**
+* Generic Function wrapper for the Vectorized Picard Chebyshev Method
+*
+* @param n matrixs row number
+* @param m matrixs column number
+* @param tau [n x 1] matrix, transformed time domain vector
+* @param x_guess [n x m] matrix, initial guess of values for the Picar Chebyshev method
+* @param omega1 first omega term 
+* @param omega2 second omega term
+* @param errorTolerance 
+*/
+double ** vmpcm(int n, int m, double tau[n][1], double x_guess[n][m], double omega1, double omega2, double errTol){
 
-    returnedArr[0] = x_guess_var;
-    returnedArr[1] = iter;
+    double ** returned = calloc(n, sizeof(double *));
 
-    return returnedArr;
+    return returned;
 } 
 
-double chebyshevPolynomial(double k, double tau)
+/**
+* Calculates Chebyshev polynomial corresponding to degree K from tau
+* 
+* @param k
+* @param tau 
+*/
+double * chebyshevPolynomial(double k[], double tau[])
 {
-    double returnedValue = 0.0;
-    return returnedValue;
+    double *tK = malloc(1);
+    return tK;
 }
