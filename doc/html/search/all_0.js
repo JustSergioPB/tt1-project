@@ -1,0 +1,9 @@
+var searchData=
+[
+  ['absarray_0',['absArray',['../LinearAlgebraFunctions_8c.html#a0f7dc5b87cfc4dbec5192acf19fe9805',1,'absArray(int size, double a[]):&#160;LinearAlgebraFunctions.c'],['../LinearAlgebraFunctions_8h.html#a0f7dc5b87cfc4dbec5192acf19fe9805',1,'absArray(int size, double a[]):&#160;LinearAlgebraFunctions.c']]],
+  ['acosarray_1',['acosArray',['../LinearAlgebraFunctions_8c.html#ae8a782ca8dd620178bedd621f8b645e5',1,'acosArray(int size, double a[]):&#160;LinearAlgebraFunctions.c'],['../LinearAlgebraFunctions_8h.html#ae8a782ca8dd620178bedd621f8b645e5',1,'acosArray(int size, double a[]):&#160;LinearAlgebraFunctions.c']]],
+  ['acotarray_2',['acotArray',['../LinearAlgebraFunctions_8c.html#a24468c33c901c26b3574bab98cc80b72',1,'acotArray(int size, double a[]):&#160;LinearAlgebraFunctions.c'],['../LinearAlgebraFunctions_8h.html#a24468c33c901c26b3574bab98cc80b72',1,'acotArray(int size, double a[]):&#160;LinearAlgebraFunctions.c']]],
+  ['addarrays_3',['addArrays',['../LinearAlgebraFunctions_8c.html#a2e292bbd53051d795a0fd28b98ac9f5a',1,'addArrays(int size, double a[], double b[]):&#160;LinearAlgebraFunctions.c'],['../LinearAlgebraFunctions_8h.html#a2e292bbd53051d795a0fd28b98ac9f5a',1,'addArrays(int size, double a[], double b[]):&#160;LinearAlgebraFunctions.c']]],
+  ['addscalartoarray_4',['addScalarToArray',['../LinearAlgebraFunctions_8c.html#a3e38f39af658ff462efad711a71de1da',1,'addScalarToArray(int size, double a[], double scalar):&#160;LinearAlgebraFunctions.c'],['../LinearAlgebraFunctions_8h.html#a3e38f39af658ff462efad711a71de1da',1,'addScalarToArray(int size, double a[], double scalar):&#160;LinearAlgebraFunctions.c']]],
+  ['atanarray_5',['atanArray',['../LinearAlgebraFunctions_8c.html#a89a2955edec4b8e5801bb88b67d7d61a',1,'atanArray(int size, double a[]):&#160;LinearAlgebraFunctions.c'],['../LinearAlgebraFunctions_8h.html#a89a2955edec4b8e5801bb88b67d7d61a',1,'atanArray(int size, double a[]):&#160;LinearAlgebraFunctions.c']]]
+];

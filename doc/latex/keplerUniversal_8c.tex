@@ -1,0 +1,50 @@
+\hypertarget{keplerUniversal_8c}{}\doxysection{/mnt/c/\+Users/oigre/\+Desktop/\+T\+T1\+\_\+2019\+\_\+20/\+C\+\_\+project/src/kepler\+Universal.c File Reference}
+\label{keplerUniversal_8c}\index{/mnt/c/Users/oigre/Desktop/TT1\_2019\_20/C\_project/src/keplerUniversal.c@{/mnt/c/Users/oigre/Desktop/TT1\_2019\_20/C\_project/src/keplerUniversal.c}}
+{\ttfamily \#include \char`\"{}kepler\+Universal.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double $\ast$$\ast$ \mbox{\hyperlink{keplerUniversal_8c_a1396125a4b26199185f1ad4e3ecca36b}{kepler\+Universal}} (int n, double r0\mbox{[}3\mbox{]}\mbox{[}n\mbox{]}, double v0\mbox{[}3\mbox{]}\mbox{[}n\mbox{]}, double time\+Vector\mbox{[}1\mbox{]}\mbox{[}n\mbox{]}, double mu)
+\item 
+double $\ast$$\ast$ \mbox{\hyperlink{keplerUniversal_8c_a4dd2c3d1dc6dc736c8814e9e67162014}{c2c3}} (int n, double psi\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{keplerUniversal_8c_a4dd2c3d1dc6dc736c8814e9e67162014}\label{keplerUniversal_8c_a4dd2c3d1dc6dc736c8814e9e67162014}} 
+\index{keplerUniversal.c@{keplerUniversal.c}!c2c3@{c2c3}}
+\index{c2c3@{c2c3}!keplerUniversal.c@{keplerUniversal.c}}
+\doxysubsubsection{\texorpdfstring{c2c3()}{c2c3()}}
+{\footnotesize\ttfamily double$\ast$$\ast$ c2c3 (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{double}]{psi\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Returns matrix
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & size of psi \\
+\hline
+{\em psi} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{keplerUniversal_8c_a1396125a4b26199185f1ad4e3ecca36b}\label{keplerUniversal_8c_a1396125a4b26199185f1ad4e3ecca36b}} 
+\index{keplerUniversal.c@{keplerUniversal.c}!keplerUniversal@{keplerUniversal}}
+\index{keplerUniversal@{keplerUniversal}!keplerUniversal.c@{keplerUniversal.c}}
+\doxysubsubsection{\texorpdfstring{keplerUniversal()}{keplerUniversal()}}
+{\footnotesize\ttfamily double$\ast$$\ast$ kepler\+Universal (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{double}]{r0\mbox{[}3\mbox{]}\mbox{[}n\mbox{]},  }\item[{double}]{v0\mbox{[}3\mbox{]}\mbox{[}n\mbox{]},  }\item[{double}]{time\+Vector\mbox{[}1\mbox{]}\mbox{[}n\mbox{]},  }\item[{double}]{mu }\end{DoxyParamCaption})}
+
+Most effecient way to propagate any type of two body orbit using kepler\textquotesingle{}s equations.
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & matrixs column\textquotesingle{}s number \\
+\hline
+{\em r0} & \mbox{[}3 x n\mbox{]} matrix, position Vector in E\+CI coordinate frame of reference \\
+\hline
+{\em v0} & \mbox{[}3 x n\mbox{]} matrix, velocity Vector in E\+CI coordinate frame of reference \\
+\hline
+{\em time\+Vector} & \mbox{[}1 x n\mbox{]} matrix, time vector in seconds \\
+\hline
+{\em mu} & Gravitional Constant, if not specified value is Earth\textquotesingle{}s mu constant \\
+\hline
+\end{DoxyParams}

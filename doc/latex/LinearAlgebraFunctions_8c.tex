@@ -1,0 +1,533 @@
+\hypertarget{LinearAlgebraFunctions_8c}{}\doxysection{/mnt/c/\+Users/oigre/\+Desktop/\+T\+T1\+\_\+2019\+\_\+20/\+C\+\_\+project/src/\+Linear\+Algebra\+Functions.c File Reference}
+\label{LinearAlgebraFunctions_8c}\index{/mnt/c/Users/oigre/Desktop/TT1\_2019\_20/C\_project/src/LinearAlgebraFunctions.c@{/mnt/c/Users/oigre/Desktop/TT1\_2019\_20/C\_project/src/LinearAlgebraFunctions.c}}
+{\ttfamily \#include \char`\"{}Linear\+Algebra\+Functions.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a2e292bbd53051d795a0fd28b98ac9f5a}{add\+Arrays}} (int size, double a\mbox{[}$\,$\mbox{]}, double b\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a6a98d173c5bcb90877283ad95eb308bd}{substract\+Arrays}} (int size, double a\mbox{[}$\,$\mbox{]}, double b\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a53af2fdfd21352d94998a38f4bbc647a}{mul\+Arrays}} (int size, double a\mbox{[}$\,$\mbox{]}, double b\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_ae5bd239c0c6832702023563b1564751c}{div\+Arrays}} (int size, double a\mbox{[}$\,$\mbox{]}, double b\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a3e38f39af658ff462efad711a71de1da}{add\+Scalar\+To\+Array}} (int size, double a\mbox{[}$\,$\mbox{]}, double scalar)
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a989d421b7ec5d42a59d7d5742e00196f}{substract\+Scalar\+To\+Array}} (int size, double a\mbox{[}$\,$\mbox{]}, double scalar)
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a1397cb7bab21e3aa2914c3db11e4e115}{mul\+Array\+By\+Scalar}} (int size, double a\mbox{[}$\,$\mbox{]}, double scalar)
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a88d38ae6584cf7a8a4973644349df3f7}{div\+Array\+By\+Scalar}} (int size, double a\mbox{[}$\,$\mbox{]}, double scalar)
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_ac46fe9dd42c234a0b237697e0dc4d4bc}{pow\+Array}} (int size, double a\mbox{[}$\,$\mbox{]}, double coef)
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a906e9ec13eb90724b53fb4dd972b0134}{get\+Array\+Subset}} (int start, int end, double a\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a44cc484dcdd49b394bd7a8287c57b9ec}{generate\+Integer\+Array}} (int from, int until)
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a22e107a6cf3921b07f620eaed269ac89}{sign}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a0f7dc5b87cfc4dbec5192acf19fe9805}{abs\+Array}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a0616881dae99eb9bbbcd4aa582f043fc}{cos\+Array}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_ae8a782ca8dd620178bedd621f8b645e5}{acos\+Array}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a9d007bc9a4aa468c1c1d8c70bf16851a}{cosh\+Array}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_ae0770dd14b51edd774f903aae7b2497f}{sin\+Array}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a86db10d13633c463f3eadd853f15f3d1}{sinh\+Array}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_ad97665712665b0ac3e26a7dc6cd98f15}{tan\+Array}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a06188c9bedd5227cfd4c1e79f1fec7e6}{sqrt\+Array}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+double \mbox{\hyperlink{LinearAlgebraFunctions_8c_aa8312d61716ecef1db9be19b40acb78f}{max}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+double \mbox{\hyperlink{LinearAlgebraFunctions_8c_a4851c95bee29b01cbd95301266f3cbe8}{sum\+Arr\+Elemens}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a1a4fc71e8a71ff304455182dcfcea127}{cross\+Product}} (double a\mbox{[}$\,$\mbox{]}, double b\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a24468c33c901c26b3574bab98cc80b72}{acot\+Array}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a89a2955edec4b8e5801bb88b67d7d61a}{atan\+Array}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+double $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a0a257a511e274d1a5bc35dd063a9591f}{log\+Array}} (int size, double a\mbox{[}$\,$\mbox{]})
+\item 
+int $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_ad88ea44fe826265461064171560eca9d}{elem\+Greater\+Than\+Value}} (int size, double a\mbox{[}$\,$\mbox{]}, double value)
+\item 
+int $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a20aefde10e3a9387799c5006f36b393b}{elem\+Lower\+Than\+Value}} (int size, double a\mbox{[}$\,$\mbox{]}, double value)
+\item 
+int $\ast$ \mbox{\hyperlink{LinearAlgebraFunctions_8c_a3f6ceee39981d21862e126705869e630}{generate\+Ones\+Array}} (int size)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a0f7dc5b87cfc4dbec5192acf19fe9805}\label{LinearAlgebraFunctions_8c_a0f7dc5b87cfc4dbec5192acf19fe9805}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!absArray@{absArray}}
+\index{absArray@{absArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{absArray()}{absArray()}}
+{\footnotesize\ttfamily double$\ast$ abs\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Generates an array containing absolute from a values abs\+Array= \mbox{[}abs(a\mbox{[}1\mbox{]}), ... , abs(a\mbox{[}n\mbox{]})\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_ae8a782ca8dd620178bedd621f8b645e5}\label{LinearAlgebraFunctions_8c_ae8a782ca8dd620178bedd621f8b645e5}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!acosArray@{acosArray}}
+\index{acosArray@{acosArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{acosArray()}{acosArray()}}
+{\footnotesize\ttfamily double$\ast$ acos\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Generates an array containing acos values from a values acos\+Array= \mbox{[}acos(a\mbox{[}1\mbox{]}), ... , acos(a\mbox{[}n\mbox{]})\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a24468c33c901c26b3574bab98cc80b72}\label{LinearAlgebraFunctions_8c_a24468c33c901c26b3574bab98cc80b72}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!acotArray@{acotArray}}
+\index{acotArray@{acotArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{acotArray()}{acotArray()}}
+{\footnotesize\ttfamily double$\ast$ acot\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Generates an array containing acot values from a values, acot\+Array= \mbox{[}acot(a\mbox{[}1\mbox{]}), ... , acot(a\mbox{[}n\mbox{]})\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a2e292bbd53051d795a0fd28b98ac9f5a}\label{LinearAlgebraFunctions_8c_a2e292bbd53051d795a0fd28b98ac9f5a}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!addArrays@{addArrays}}
+\index{addArrays@{addArrays}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{addArrays()}{addArrays()}}
+{\footnotesize\ttfamily double$\ast$ add\+Arrays (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]},  }\item[{double}]{b\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Adds two arrays returning c = \mbox{[}a\mbox{[}0\mbox{]}+b\mbox{[}0\mbox{]}, ... , a\mbox{[}n\mbox{]}+b\mbox{[}n\mbox{]}\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a3e38f39af658ff462efad711a71de1da}\label{LinearAlgebraFunctions_8c_a3e38f39af658ff462efad711a71de1da}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!addScalarToArray@{addScalarToArray}}
+\index{addScalarToArray@{addScalarToArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{addScalarToArray()}{addScalarToArray()}}
+{\footnotesize\ttfamily double$\ast$ add\+Scalar\+To\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]},  }\item[{double}]{scalar }\end{DoxyParamCaption})}
+
+Adds a scalar to a vector returning c = \mbox{[}a\mbox{[}0\mbox{]}+scalar, ... , a\mbox{[}n\mbox{]}+scalar\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+{\em scalar} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a89a2955edec4b8e5801bb88b67d7d61a}\label{LinearAlgebraFunctions_8c_a89a2955edec4b8e5801bb88b67d7d61a}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!atanArray@{atanArray}}
+\index{atanArray@{atanArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{atanArray()}{atanArray()}}
+{\footnotesize\ttfamily double$\ast$ atan\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Generates an array containing atan values from a values, atan\+Array= \mbox{[}atan(a\mbox{[}1\mbox{]}), ... , atan(a\mbox{[}n\mbox{]})\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a0616881dae99eb9bbbcd4aa582f043fc}\label{LinearAlgebraFunctions_8c_a0616881dae99eb9bbbcd4aa582f043fc}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!cosArray@{cosArray}}
+\index{cosArray@{cosArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{cosArray()}{cosArray()}}
+{\footnotesize\ttfamily double$\ast$ cos\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Generates an array containing cos values from a values cos\+Array= \mbox{[}cos(a\mbox{[}1\mbox{]}), ... , cos(a\mbox{[}n\mbox{]})\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a9d007bc9a4aa468c1c1d8c70bf16851a}\label{LinearAlgebraFunctions_8c_a9d007bc9a4aa468c1c1d8c70bf16851a}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!coshArray@{coshArray}}
+\index{coshArray@{coshArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{coshArray()}{coshArray()}}
+{\footnotesize\ttfamily double$\ast$ cosh\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Generates an array containing cosh values from a values cosh\+Array= \mbox{[}cosh(a\mbox{[}1\mbox{]}), ... , cosh(a\mbox{[}n\mbox{]})\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a1a4fc71e8a71ff304455182dcfcea127}\label{LinearAlgebraFunctions_8c_a1a4fc71e8a71ff304455182dcfcea127}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!crossProduct@{crossProduct}}
+\index{crossProduct@{crossProduct}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{crossProduct()}{crossProduct()}}
+{\footnotesize\ttfamily double$\ast$ cross\+Product (\begin{DoxyParamCaption}\item[{double}]{a\mbox{[}$\,$\mbox{]},  }\item[{double}]{b\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Returns cross product from a and b
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a88d38ae6584cf7a8a4973644349df3f7}\label{LinearAlgebraFunctions_8c_a88d38ae6584cf7a8a4973644349df3f7}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!divArrayByScalar@{divArrayByScalar}}
+\index{divArrayByScalar@{divArrayByScalar}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{divArrayByScalar()}{divArrayByScalar()}}
+{\footnotesize\ttfamily double$\ast$ div\+Array\+By\+Scalar (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]},  }\item[{double}]{scalar }\end{DoxyParamCaption})}
+
+Divides a vector by a scalar returning c = \mbox{[}a\mbox{[}0\mbox{]}+scalar, ... , a\mbox{[}n\mbox{]}+scalar\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+{\em scalar} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_ae5bd239c0c6832702023563b1564751c}\label{LinearAlgebraFunctions_8c_ae5bd239c0c6832702023563b1564751c}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!divArrays@{divArrays}}
+\index{divArrays@{divArrays}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{divArrays()}{divArrays()}}
+{\footnotesize\ttfamily double$\ast$ div\+Arrays (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]},  }\item[{double}]{b\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Divides two arrays returning c = \mbox{[}a\mbox{[}0\mbox{]}/b\mbox{[}0\mbox{]}, ... , a\mbox{[}n\mbox{]}/b\mbox{[}n\mbox{]}\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_ad88ea44fe826265461064171560eca9d}\label{LinearAlgebraFunctions_8c_ad88ea44fe826265461064171560eca9d}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!elemGreaterThanValue@{elemGreaterThanValue}}
+\index{elemGreaterThanValue@{elemGreaterThanValue}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{elemGreaterThanValue()}{elemGreaterThanValue()}}
+{\footnotesize\ttfamily int$\ast$ elem\+Greater\+Than\+Value (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]},  }\item[{double}]{value }\end{DoxyParamCaption})}
+
+Generates an array containing 0 , 1 values result of a\mbox{[}n\mbox{]} $>$ value
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of array \\
+\hline
+{\em a} & \\
+\hline
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a20aefde10e3a9387799c5006f36b393b}\label{LinearAlgebraFunctions_8c_a20aefde10e3a9387799c5006f36b393b}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!elemLowerThanValue@{elemLowerThanValue}}
+\index{elemLowerThanValue@{elemLowerThanValue}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{elemLowerThanValue()}{elemLowerThanValue()}}
+{\footnotesize\ttfamily int$\ast$ elem\+Lower\+Than\+Value (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]},  }\item[{double}]{value }\end{DoxyParamCaption})}
+
+Generates an array containing 0 , 1 values result of a\mbox{[}n\mbox{]} $<$ value
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of array \\
+\hline
+{\em a} & \\
+\hline
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a44cc484dcdd49b394bd7a8287c57b9ec}\label{LinearAlgebraFunctions_8c_a44cc484dcdd49b394bd7a8287c57b9ec}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!generateIntegerArray@{generateIntegerArray}}
+\index{generateIntegerArray@{generateIntegerArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{generateIntegerArray()}{generateIntegerArray()}}
+{\footnotesize\ttfamily double$\ast$ generate\+Integer\+Array (\begin{DoxyParamCaption}\item[{int}]{from,  }\item[{int}]{until }\end{DoxyParamCaption})}
+
+Generates an array with integer numbers returning integer\+Array = \mbox{[}from, from + 1 , ... , until\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em from} & \\
+\hline
+{\em until} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a3f6ceee39981d21862e126705869e630}\label{LinearAlgebraFunctions_8c_a3f6ceee39981d21862e126705869e630}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!generateOnesArray@{generateOnesArray}}
+\index{generateOnesArray@{generateOnesArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{generateOnesArray()}{generateOnesArray()}}
+{\footnotesize\ttfamily int$\ast$ generate\+Ones\+Array (\begin{DoxyParamCaption}\item[{int}]{size }\end{DoxyParamCaption})}
+
+Generates a array with 1s of size n
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of array \\
+\hline
+{\em n} & size of array \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a906e9ec13eb90724b53fb4dd972b0134}\label{LinearAlgebraFunctions_8c_a906e9ec13eb90724b53fb4dd972b0134}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!getArraySubset@{getArraySubset}}
+\index{getArraySubset@{getArraySubset}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{getArraySubset()}{getArraySubset()}}
+{\footnotesize\ttfamily double$\ast$ get\+Array\+Subset (\begin{DoxyParamCaption}\item[{int}]{start,  }\item[{int}]{end,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Generates a subset from an array returning subset = \mbox{[}a\mbox{[}start\mbox{]}, ... , a\mbox{[}end\mbox{]}\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & \\
+\hline
+{\em end} & \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a0a257a511e274d1a5bc35dd063a9591f}\label{LinearAlgebraFunctions_8c_a0a257a511e274d1a5bc35dd063a9591f}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!logArray@{logArray}}
+\index{logArray@{logArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{logArray()}{logArray()}}
+{\footnotesize\ttfamily double$\ast$ log\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Generates an array containing log values from a values, log\+Array= \mbox{[}log(a\mbox{[}1\mbox{]}), ... , log(a\mbox{[}n\mbox{]})\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_aa8312d61716ecef1db9be19b40acb78f}\label{LinearAlgebraFunctions_8c_aa8312d61716ecef1db9be19b40acb78f}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!max@{max}}
+\index{max@{max}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{max()}{max()}}
+{\footnotesize\ttfamily double max (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Returns max value contained in a
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a1397cb7bab21e3aa2914c3db11e4e115}\label{LinearAlgebraFunctions_8c_a1397cb7bab21e3aa2914c3db11e4e115}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!mulArrayByScalar@{mulArrayByScalar}}
+\index{mulArrayByScalar@{mulArrayByScalar}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{mulArrayByScalar()}{mulArrayByScalar()}}
+{\footnotesize\ttfamily double$\ast$ mul\+Array\+By\+Scalar (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]},  }\item[{double}]{scalar }\end{DoxyParamCaption})}
+
+Multiplies a vector by a scalar returning c = \mbox{[}a\mbox{[}0\mbox{]}$\ast$scalar, ... , a\mbox{[}n\mbox{]}$\ast$scalar\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+{\em scalar} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a53af2fdfd21352d94998a38f4bbc647a}\label{LinearAlgebraFunctions_8c_a53af2fdfd21352d94998a38f4bbc647a}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!mulArrays@{mulArrays}}
+\index{mulArrays@{mulArrays}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{mulArrays()}{mulArrays()}}
+{\footnotesize\ttfamily double$\ast$ mul\+Arrays (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]},  }\item[{double}]{b\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Multiplies two arrays returning c = \mbox{[}a\mbox{[}0\mbox{]}$\ast$b\mbox{[}0\mbox{]}, ... , a\mbox{[}n\mbox{]}$\ast$b\mbox{[}n\mbox{]}\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_ac46fe9dd42c234a0b237697e0dc4d4bc}\label{LinearAlgebraFunctions_8c_ac46fe9dd42c234a0b237697e0dc4d4bc}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!powArray@{powArray}}
+\index{powArray@{powArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{powArray()}{powArray()}}
+{\footnotesize\ttfamily double$\ast$ pow\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]},  }\item[{double}]{coef }\end{DoxyParamCaption})}
+
+Divides a vector by a scalar returning c = \mbox{[}a\mbox{[}0\mbox{]}+scalar, ... , a\mbox{[}n\mbox{]}+scalar\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+{\em scalar} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a22e107a6cf3921b07f620eaed269ac89}\label{LinearAlgebraFunctions_8c_a22e107a6cf3921b07f620eaed269ac89}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!sign@{sign}}
+\index{sign@{sign}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{sign()}{sign()}}
+{\footnotesize\ttfamily double$\ast$ sign (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Generates an array containing the following elements 1 if the corresponding element of a is greater than 0.
+
+0 if the corresponding element of a equals 0.
+
+-\/1 if the corresponding element of a is less than 0.
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_ae0770dd14b51edd774f903aae7b2497f}\label{LinearAlgebraFunctions_8c_ae0770dd14b51edd774f903aae7b2497f}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!sinArray@{sinArray}}
+\index{sinArray@{sinArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{sinArray()}{sinArray()}}
+{\footnotesize\ttfamily double$\ast$ sin\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Generates an array containing sin values from a values sin\+Array= \mbox{[}cos(a\mbox{[}1\mbox{]}), ... , cos(a\mbox{[}n\mbox{]})\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a86db10d13633c463f3eadd853f15f3d1}\label{LinearAlgebraFunctions_8c_a86db10d13633c463f3eadd853f15f3d1}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!sinhArray@{sinhArray}}
+\index{sinhArray@{sinhArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{sinhArray()}{sinhArray()}}
+{\footnotesize\ttfamily double$\ast$ sinh\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Generates an array containing sinh values from a values sinh\+Array= \mbox{[}sinh(a\mbox{[}1\mbox{]}), ... , sinh(a\mbox{[}n\mbox{]})\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a06188c9bedd5227cfd4c1e79f1fec7e6}\label{LinearAlgebraFunctions_8c_a06188c9bedd5227cfd4c1e79f1fec7e6}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!sqrtArray@{sqrtArray}}
+\index{sqrtArray@{sqrtArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{sqrtArray()}{sqrtArray()}}
+{\footnotesize\ttfamily double$\ast$ sqrt\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Generates an array containing sqrt values from a values, sqrt\+Array= \mbox{[}sqrt(a\mbox{[}1\mbox{]}), ... , sqrt(a\mbox{[}n\mbox{]})\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a6a98d173c5bcb90877283ad95eb308bd}\label{LinearAlgebraFunctions_8c_a6a98d173c5bcb90877283ad95eb308bd}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!substractArrays@{substractArrays}}
+\index{substractArrays@{substractArrays}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{substractArrays()}{substractArrays()}}
+{\footnotesize\ttfamily double$\ast$ substract\+Arrays (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]},  }\item[{double}]{b\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Substracts two arrays returning c = \mbox{[}a\mbox{[}0\mbox{]}-\/b\mbox{[}0\mbox{]}, ... , a\mbox{[}n\mbox{]}-\/b\mbox{[}n\mbox{]}\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a989d421b7ec5d42a59d7d5742e00196f}\label{LinearAlgebraFunctions_8c_a989d421b7ec5d42a59d7d5742e00196f}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!substractScalarToArray@{substractScalarToArray}}
+\index{substractScalarToArray@{substractScalarToArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{substractScalarToArray()}{substractScalarToArray()}}
+{\footnotesize\ttfamily double$\ast$ substract\+Scalar\+To\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]},  }\item[{double}]{scalar }\end{DoxyParamCaption})}
+
+Substracts a scalar to a vector returning c = \mbox{[}a\mbox{[}0\mbox{]}-\/scalar, ... , a\mbox{[}n\mbox{]}-\/scalar\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+{\em scalar} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_a4851c95bee29b01cbd95301266f3cbe8}\label{LinearAlgebraFunctions_8c_a4851c95bee29b01cbd95301266f3cbe8}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!sumArrElemens@{sumArrElemens}}
+\index{sumArrElemens@{sumArrElemens}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{sumArrElemens()}{sumArrElemens()}}
+{\footnotesize\ttfamily double sum\+Arr\+Elemens (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Returns array\textquotesingle{}s elements value contained in a
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{LinearAlgebraFunctions_8c_ad97665712665b0ac3e26a7dc6cd98f15}\label{LinearAlgebraFunctions_8c_ad97665712665b0ac3e26a7dc6cd98f15}} 
+\index{LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}!tanArray@{tanArray}}
+\index{tanArray@{tanArray}!LinearAlgebraFunctions.c@{LinearAlgebraFunctions.c}}
+\doxysubsubsection{\texorpdfstring{tanArray()}{tanArray()}}
+{\footnotesize\ttfamily double$\ast$ tan\+Array (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{a\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Generates an array containing tan values from a values tan\+Array= \mbox{[}cos(a\mbox{[}1\mbox{]}), ... , cos(a\mbox{[}n\mbox{]})\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size of returning array \\
+\hline
+{\em a} & \\
+\hline
+\end{DoxyParams}
