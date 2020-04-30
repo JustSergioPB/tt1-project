@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/Test.dir/linearAlgebraFunctionsTest.c.o  -o Test ../lib/libgtest_maind.a -lC_Project ../lib/libgtestd.a -lpthread 

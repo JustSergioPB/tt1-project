@@ -1,7 +1,7 @@
 #ifndef KEPLERUNIVERSAL_H_ 
 #define KEPLERUNIVERSAL_H_
 
-double ** keplerUniversal(int n, double r0[3][n], double v0[3][n], double timeVector[1][n], double mu);
-double ** c2c3(int n, double psi[]);
+void keplerUniversal(int rows, int columns, double **r0, double **v0, double *timeVector, double mu, double ***rA, double ***vA);
+void c2c3(int n, double *psi, double *c2, double *c3);
 
 #endif
