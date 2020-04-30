@@ -81,8 +81,58 @@ void picardChebyshevDemo(){
    transpose(3, n+1, r_guess, &r_guessTransposed);
    transpose(3, n+1, v_guess, &v_guessTransposed);
 
-   // TODO asign x_guess values 
-   
+   // TODO asign x_guess values
+   vmpcm(3, n+1, tau, &x_guess, omega1, omega2, errorTolerance);
+   // TODO recheck this
+   double **rvPCM;
+
+   double PCMPosMag[3];
+   double APosMag[3];
+   double PCMVelMag[3];
+   double AVelMag[3];
+   double PosErr[3];
+   double VelErr[3];
+   double **rFinMatrTransposed;
+   double **vFinMatrTransposed;
+   transpose(3, n+1, rFinMatr, &rFinMatrTransposed);
+   transpose(3, n+1, vFinMatr, &vFinMatrTransposed);
+
+   for(int i = 0; i < 3; i++){
+      PCMPosMag[i] = 0.0;
+      for(int j = 0; j < 3; j++ ){
+         PCMPosMag[i] += pow(x_guess[i][j], 2);
+      }
+      PCMPosMag[i] = sqrt(PCMPosMag[i]);
+   }
+
+   for(int i = 0; i < 3; i++){
+      PCMVelMag[i] = 0.0;
+      for(int j = 3; j < n+1; j++ ){
+         PCMVelMag[i] += pow(x_guess[i][j], 2);
+      }
+      PCMVelMag[i] = sqrt(PCMVelMag[i]);
+   }
+
+   // @TODO must recheck stop condition
+   for(int i = 0; i < n+1; i++){
+      APosMag[i] = 0.0;
+      AVelMag[i] = 0.0;
+      for(int j = 3; j < 3; j++ ){
+         APosMag[i] += pow(rFinMatrTransposed[i][j], 2);
+         AVelMag[i] += pow(vFinMatrTransposed[i][j], 2);
+      }
+      APosMag[i] = sqrt(APosMag[i]);
+      AVelMag[i] = sqrt(AVelMag[i]);
+   }
+
+   // @TODO must recheck stop condition
+   for(int i= 0; i < n+1; i++){
+      PosErr[i] = abs(PCMPosMag[i] - APosMag[i]);
+      VelErr[i] = abs(PCMVelMag[i] - AVelMag[i]);
+   }
+
+   plotPositionAndVelocity(rvPCM, rFinMatr, vFinMatr, vMag, a, t, x_guess);
+   plotMagnitudeErrors(t, PosErr, VelErr);
 
    freeMatrix(3, rFinMatr);
    freeMatrix(3, vFinMatr);
@@ -130,13 +180,13 @@ void twoBodyForceModel(int rows, int columns, double *t, double **posvel, double
 /**
 * Print function
 */
-void plotPositionAndVelocity(double rvPCM, double rA, double vA, double vMag, double a, double t, double xg){
+void plotPositionAndVelocity(double **rvPCM, double **rA, double **vA, double vMag, double a, double *t, double **xg){
 
 }
 
 /**
 * Print function
 */
-void plotMagnitudeErrors(double t, double PosErr, double VelErr){
+void plotMagnitudeErrors(double *t, double *PosErr, double *VelErr){
 
 }
