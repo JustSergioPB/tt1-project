@@ -21,31 +21,30 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     double tolerance = 1e-9;
     
     double **v0Pow2;
-    matrixPow(rows, columns, 2, v0, &v0Pow2);
     double v0Compressed[columns];
-    compressToOneDim(rows, columns, v0, v0Compressed);
     double v0Mag[columns];
+
+    matrixPow(rows, columns, 2, v0, &v0Pow2);
+    compressToOneDim(rows, columns, v0, v0Compressed);
+
+    double **r0Pow2;
+    double r0Compressed[columns];
+    double r0Mag[columns];
+
+    matrixPow(rows, columns, 2, r0, &r0Pow2);
+    compressToOneDim(rows, columns, r0, r0Compressed);
+
+    double alpha[columns];
+
     for(int i=0; i < columns; i++){
+        r0Mag[i] = sqrt(r0Compressed[i]);
         v0Mag[i] = sqrt(v0Compressed[i]);
+        alpha[i] = -pow(v0Mag[i],2)/mu + 2/r0Mag[i];
     }
 
     freeMatrix(rows, v0Pow2);
-
-    double **r0Pow2;
-    matrixPow(rows, columns, 2, r0, &r0Pow2);
-    double r0Compressed[columns];
-    compressToOneDim(rows, columns, r0, r0Compressed);
-    double r0Mag[columns];
-    for(int i=0; i < columns; i++){
-        r0Mag[i] = sqrt(r0Compressed[i]);
-    }
-
     freeMatrix(rows, r0Pow2);
-    
-    double alpha[columns];
-    for(int i=0; i < columns; i++){
-        alpha[i] = -pow(v0Mag[i],2)/mu + 2/r0Mag[i];
-    }
+
     double x0[columns];
 
     int idx[columns];
@@ -68,8 +67,11 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
         double **h = (double **) calloc(rows, sizeof(double *));
 
         int col = truesInArray(columns, idx);
-        double r0idx[rows][col], v0idx[rows][col];
-        double r0column[rows], v0column[rows];
+        double r0idx[rows][col];
+        double v0idx[rows][col];
+        double r0column[rows]; 
+        double v0column[rows];
+
         for(int i = 0; i < columns; i++){
             getColumn(rows, i, r0, r0column);
             getColumn(rows, i, v0, v0column);
@@ -80,6 +82,7 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
         }  
  
         double crossColumn[rows];
+
         for(int i = 0; i < columns; i++){
             getColumn(rows, i, r0, r0column);
             getColumn(rows, i, v0, v0column);
@@ -92,33 +95,20 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
         double **hPow2; 
         double hCompressed[columns];
         double hMag[columns];
+
         matrixPow(rows, columns, 2, h, &hPow2);
         compressToOneDim(rows, columns, hPow2, hCompressed);
-        for(int i = 0; i < columns; i++){
-           hMag[i] = sqrt(hCompressed[i]); 
-        }
 
         double p[columns];
-        for(int i =0;i < columns; i++){
-            p[i] = pow(hMag[i],2)/mu;
-        }
-
         double s[columns];
-        for(int i= 0; i < columns; i++){
-            if(idx[i] == 1){
-                s[i] = (1/(1/tan(3*sqrt(mu/pow(p[i], 3)))))*timeVector[i]/2;
-            }
-        }
-
         double w[columns];
-        for(int i=0; i < columns; i++){
-            w[i] = atan(pow(tan(s[i]), 1/3));
-        }
 
         for(int i = 0; i < columns; i++){
-            if(idx[i] == 1){
-                x0[i] = sqrt(p[i])*2*(1/tan(2*w[i]));
-            }
+            hMag[i] = sqrt(hCompressed[i]); 
+            p[i] = pow(hMag[i],2)/mu;
+            if(idx[i] == 1) s[i] = (1/(1/tan(3*sqrt(mu/pow(p[i], 3)))))*timeVector[i]/2;
+            w[i] = atan(pow(tan(s[i]), 1/3));
+            if(idx[i] == 1) x0[i] = sqrt(p[i])*2*(1/tan(2*w[i]));
         }
 
         freeMatrix(rows, h);
@@ -127,11 +117,28 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     //Check if there are any Hyperbolic orbits
     elemLowerThanValue(columns, -0.000001, alpha, idx);
     if(any(columns, idx) == 1){
+
+        int col = truesInArray(columns, idx);
+        double **r0idx = (double **) calloc(rows, sizeof(double *)); 
+        double **v0idx = (double **) calloc(rows, sizeof(double *));
+        double r0column[rows];
+        double v0column[rows];
+
+        for(int i = 0; i < columns; i++){
+            getColumn(rows, i, r0, r0column);
+            getColumn(rows, i, v0, v0column);
+            for(int j = 0; j < rows; j++){
+                r0idx[j][i] = r0column[j];
+                v0idx[j][i] = v0column[j];
+            }
+        } 
+
+        double dot = dotProduct(rows, col, r0idx, v0idx); 
+
         for(int i =0; i < columns; i++){
             if(idx[i] == 1){
-                /*x0 = sign(timeVector[i])*sqrt(-1/alpha[i])
-                    *log(-2*mu*alpha[i]*timeVector[i]/()
-                    *sqrt(-mu*1/alpha[i])*(1 -r0Mag[i]*alpha[i]));*/
+                double a = 1/alpha[i];
+                x0[i] = sign(timeVector[i])*sqrt(-a)*log(-2*mu*alpha[i]*timeVector[i]/(dot + sign(timeVector[i])*sqrt(-mu*a)*(1 - r0Mag[i]*alpha[i])));
             }
         }
     }
@@ -140,45 +147,34 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     double error[columns];
     double dr0v0Smu = dotProduct(rows, columns, r0, v0)/sqrt(mu);
     double Smut[columns];
-    for(int i = 0; i < columns; i++){
-        Smut[i] = sqrt(mu)*timeVector[i];
-    }
+    multiplyArrayByScalar(columns, timeVector, sqrt(mu), Smut);
 
-    double c2[columns], c3[columns];
-    double x02[columns], x03[columns], psi[columns];
+    double x02[columns]; 
+    double x03[columns];
+    double c2[columns]; 
+    double c3[columns];
+    double psi[columns];
     double r[columns];
     double xn[columns];
+    double X0tOmPsiC3[columns];
+    double X02tC2[columns];
 
     int a[columns];
     elemGreaterThanValue(columns, tolerance, error, a);
     while(any(columns, a) == 1){
+
         arrayPow(columns, 2, x0, x02);
         multiplyArrays(columns, x0, x02, x03);
         multiplyArrays(columns, x02, alpha, psi);
 
         c2c3(columns, psi, c2, c3);
-
-        double X0tOmPsiC3[columns];
-        for(int i =0; i < columns; i++){
-            X0tOmPsiC3[i] = x0[i]*(1 - psi[i]*c3[i]);
-        }
-
-        double X02tC2[columns];
-        multiplyArrays(columns, x02, c2, X02tC2);
-
-        for(int i=0; i < columns; i++){
-            r[i] = X02tC2[i] + dr0v0Smu*X0tOmPsiC3[i] + r0Mag[i]*(1 - psi[i]*c2[i]);
-        }
-
-        for(int i=0; i < columns; i++){
-            xn[i] = x0[i] + (Smut[i] - x03[i]*c3[i] - dr0v0Smu*X02tC2[i] - r0Mag[i]*X0tOmPsiC3[i])/r[i];
-        }
-
-        for(int i=0; i < columns; i++){
-            error[i] = xn[i] - x0[i];
-        }
         
-        for(int i=0; i < columns; i++){
+        for(int i = 0; i < columns; i++){
+            X0tOmPsiC3[i] = x0[i]*(1 - psi[i]*c3[i]);
+            X02tC2[i] = x02[i]*c2[i];
+            r[i] = X02tC2[i] + dr0v0Smu*X0tOmPsiC3[i] + r0Mag[i]*(1 - psi[i]*c2[i]);
+            xn[i] = x0[i] + (Smut[i] - x03[i]*c3[i] - dr0v0Smu*X02tC2[i] - r0Mag[i]*X0tOmPsiC3[i])/r[i];
+            error[i] = xn[i] - x0[i];
             x0[i] = xn[i];
         }
 
@@ -186,22 +182,14 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     }
 
     double f[columns];
+    double g[columns];
+    double gdot[columns];
+    double fdot[columns];
+
     for(int i=0; i < columns; i++){
         f[i] = 1 - pow(xn[i], 2)*c2[i]/r0Mag[i];
-    }
-
-    double g[columns];
-    for(int i=0; i < columns; i++){
         g[i] = timeVector[i] - pow(xn[i], 3)*c3[i]/sqrt(mu);
-    }
-
-    double gdot[columns];
-    for(int i=0; i < columns; i++){
         gdot[i] = 1 - c2[i]*pow(xn[i], 2)/r[i];
-    }
-
-    double fdot[columns];
-    for(int i=0; i < columns; i++){
         fdot[i] = xn[i]*(psi[i]*c3[i]-1)*sqrt(mu)/r[i]*r0Mag[i];
     }
 

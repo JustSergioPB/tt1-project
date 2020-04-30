@@ -1,6 +1,7 @@
 #include "picardChebyshevDemo.h"
 #include "auxMethods.h"
 #include "keplerUniversal.h"
+#include "VMPCM.h"
 #include <stdlib.h>
 #include <math.h>
 #ifndef MPI
@@ -74,15 +75,14 @@ void picardChebyshevDemo(){
       }
    }
 
-   double **x_guess = calloc(2, sizeof(double *));
+   double **x_guess;
    double **r_guessTransposed;
-   transpose(3, n+1, r_guess, &r_guessTransposed);
    double **v_guessTransposed;
+   transpose(3, n+1, r_guess, &r_guessTransposed);
    transpose(3, n+1, v_guess, &v_guessTransposed);
-   /*
-   x_guess[0] = r_guessTransposed;
-   x_guess[1] = v_guessTransposed;
-   */
+
+   // TODO asign x_guess values 
+   
 
    freeMatrix(3, rFinMatr);
    freeMatrix(3, vFinMatr);
@@ -99,14 +99,32 @@ void picardChebyshevDemo(){
 * @param posvel
 * @param mu
 */
-void twoBodyForceModel(int rows, int columns, double *t, double **posvel, double mu, double **f){
-   /*double rMag[][], nuR3[][];
+void twoBodyForceModel(int rows, int columns, double *t, double **posvel, double mu, double ***f){
    
+   double **eta = (double **) calloc(rows, sizeof(double *));
+   double rMag[rows];
+   double nuR3[rows];
+
    for(int i = 0; i < rows; i++){
-    for(int j = 0; j < columns; j++){
-       nuR3[i][j] = rMag[i][j];
-    }    
-   }*/
+      rMag[i] = 0.0; 
+      
+      for(int j = 0; j < 3; j++){
+         rMag[i] += pow(posvel[i][j], 2);
+      }
+      rMag[i] = sqrt(rMag[i]);
+
+      nuR3[i] = -mu/pow(rMag[i], 3); 
+      
+      eta[i][1] = posvel[i][4];
+      eta[i][2] = posvel[i][5];
+      eta[i][3] = posvel[i][6];
+      eta[i][4] = nuR3[i]*posvel[i][1];
+      eta[i][5] = nuR3[i]*posvel[i][2];
+      eta[i][6] = nuR3[i]*posvel[i][3];
+   }
+
+   *f = eta;
+   
 }
 
 /**
