@@ -75,14 +75,20 @@ void picardChebyshevDemo(){
       }
    }
 
-   double **x_guess;
+   double **x_guess = (double **) calloc(2*(n+1), sizeof(double *));
    double **r_guessTransposed;
    double **v_guessTransposed;
    transpose(3, n+1, r_guess, &r_guessTransposed);
    transpose(3, n+1, v_guess, &v_guessTransposed);
 
    // TODO asign x_guess values
-   vmpcm(3, n+1, tau, &x_guess, omega1, omega2, errorTolerance);
+   for(int i = 0; i < 2*(n+1); i++) {
+      for(int j = 0; j < 6; j++){
+         x_guess[i][j] = 
+      }
+   }
+
+   vmpcm(n+1, 3, tau, &x_guess, omega1, omega2, errorTolerance);
    // TODO recheck this
    double **rvPCM;
 
@@ -142,13 +148,10 @@ void picardChebyshevDemo(){
    freeMatrix(3, v_guess);
    freeMatrix(3, r_guessTransposed);
    freeMatrix(3, v_guessTransposed);
+   freeMatrix(2*(n+1), x_guess);
 }
 
-/**
-* @param t
-* @param posvel
-* @param mu
-*/
+
 void twoBodyForceModel(int rows, int columns, double *t, double **posvel, double mu, double ***f){
    
    double **eta = (double **) calloc(rows, sizeof(double *));

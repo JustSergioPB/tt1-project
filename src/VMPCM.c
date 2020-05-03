@@ -22,107 +22,109 @@
 */
 void vmpcm(int n, int m, double *tau, double ***x_guess, double omega1, double omega2, double errorTolerance){
     int N = n - 1;
-    // TODO err1 and err2 are infinty 
-    double err1 = 0;
-    double err2 = 0;
-   
-    double **t;
-    double k[N+2];
-    generateIntegerArray(0, N+2, k);
-    chebyshevPolynomial(N+2, n, k, tau, &t);
+
+    double k[n+1];
+    double **tK = (double **) calloc(n+1, sizeof(double *));
+    generateIntegerArray(0, n+1, k);
+    chebyshevPolynomial(n+1, n, k, tau, &tK);
 
     double v[n];
-    generateOnesArray(n, v);
-    divideArrayByScalar(n, v, N, v);
-    for(int i=1; i < n-1 ; i++){
-        v[i] = v[i]*2;
-    }
-
-    double TV1[n][m];
-    double TV1Aux[N-1][N+2];
-    //getRows(0, N-1, N+2, t, TV1Aux);
-    //timesMatrixArray(n, m, TV1Aux, v, TV1);
-
-    double TV2[n][m];
-    double TV2Aux[N-1][N+2];
-    //getRows(2, N+1, m, t, TV2Aux);
-    //timesMatrixArray(n, m, TV2Aux, v, TV2);
-
-    double TV[n][m];
-    double TVaux[n];
-    double TVaux2[n];
-    double TV1minusTV2[n][m];
-    generateOnesArray(n, TVaux);
+    generateOnesArray(n+1, v);
     for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            TV1minusTV2[i][j] = TV1[i][j] - TV2[i][j];        
+        if(i > 2 && i < n-1){
+            v[i] = 2*v[i]/N;
         }
     }
-    //generateIngeterArray(1, n, TVaux2);
 
-    for(int i=0; i < n; i++){
-        TV[i][m-1] = TV1[i][m-1]/(2*N);    
-    }
+    double **TV1;
+    double **TV2;
+    double **TV;
+    double **TV1aux = (double **) calloc(N, sizeof(double *));
+    double **TV2aux = (double **) calloc(N, sizeof(double *));
+    double **TVaux;
+    double aux[N];
 
-    double s[n];
-    double auxS[n];
-    generateIntegerArray(1, n, auxS);
-    for(int i = 0; i < n; i++){
-        s[i] = 2*pow(-1, auxS[i]+1);
-    }
-
-    double Cx[n][m];
-    for(int i=0; i < n; i++){
-        for(int j=0; j < n; j++){
-            Cx[i][j] = t[i][j];
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < n, j++){
+            TV1aux[i][j] = tK[i][j];
         }
     }
-    for(int i =0; i < n; i++){
-        Cx[i][1] = Cx[i][1]/2;
+
+    int k = 0;
+    for(int i = 1; i < n+1; i++){
+        for(int j = 0; j < n, j++){
+            TV2aux[k][j] = tK[i][j];
+        }
+        k++;
     }
 
-    for(int iter = 0; iter < 300 && (errorTolerance < err1 || errorTolerance < err2); iter++){
-        iter++;
+    timesArrayMatrix(N, n, v, TV1aux, &TV1);
+    timesArrayMatrix(N, n, v, TV2aux, &TV2);
+    generateIntegerArray(1, N, aux);
+    for(int i = 0; i < N; i++){
+        aux[i] = aux[i]*2;
+    }
+    substractMatrix(N, n, TV1, TV2, &TVaux);
+    dividesArrayMatrix(N, n, aux, TVaux, &TV);
+    for(j = 0; j < n; j++){
+        TV[N-1][j] = TV1[N-1][j]/2*N;
+    }
 
-        double a[n];
+    double s[N];
+    generateIntegerArray(1, N, s);
+    for(int i = 0; i < N; i++){
+        s[i] = 2*pow(-1, s[i] + 1);
+    }
+
+    //TODO check size and freeMatrix later
+    double **Cx;
+    //TODO check how values are asigned and stop condition
+    for(int i = 0; i < N; i++){
+        Cx[i][0] = CX[i][0]/2;
+    }
+
+    //TODO change from double to infinity
+    double err1 = 0.0;
+    double err2 = 0.0;
+    double mu = 398600.4415;
+    //TODO check size and freeMatrix later
+    double **f;
+    double **beta_r;
+    double **beta_k;
+    double **x_new;
+    for(int i = 0; i < 300 && (errorTolerance < err1 || errorTolerance < err2),i++){
+
+        double tauTimesOmega2[n];
+        double t[n];
+        multiplyArrayByScalar(n, tau, omega2, tauTimesOmega2);
+        addScalarToArray(n, tauTimesOmega2, omega1, t);
+        twoBodyForceModel(n, m, t, x_guess, mu, &f);
+
         for(int i = 0; i < n; i++){
-            a[i] = omega2*tau[i] + omega1;
-        }
-        
-        double **f;
-        //twoBodyForceModel(a, &x_guess, mu, f);
-
-        //Numero de columnas de f 
-        int sizeF2;
-        //Numero de filas de f
-        int sizeF1;
-    
-        if(sizeF2 == 1 || sizeF1 == 1){
-            //transpose(n, m, f);
-        } 
-
-        int sizeTV1;
-        double beta_r[sizeTV1][sizeF2];
-        double beta_k[sizeTV1+1][sizeF2]; 
-        double **x_new; 
-
-        for(int i=0; i < n; i++){
-            for(int j=0; j < sizeF2; j++){
-                
+            for(int j = 0; j < m; j++){
+                f[i][j] = f[i][j]*omega2; 
             }
         }
-        
-        /*
-        if(){
-            transpose(sizeTV1, sizeF2, x_new);
-        }*/
 
-        //err2 = err1;
-        //err1 = max(absArray());
-        //x_guess = x_new;
+        beta_r = (double **) calloc(N, sizeof(double *));
+        beta_k = (double **) calloc(N+1, sizeof(double *));
+        x_new = (double **) calloc(N+1, sizeof(double *));
+
+        for(int i = 0, i < m, i++){
+
+        }
+        
+        err2 = err1;
+        err1;
     }
 
-    freeMatrix(n, t);
+    freeMatrix(n+1, tK);
+    freeMatrix(N, TV1);
+    freeMatrix(N, TV2);
+    freeMatrix(N, TV);
+    freeMatrix(N, TV1aux);
+    freeMatrix(N, TV2aux);
+    freeMatrix(N, TVaux);
 } 
 
 /**

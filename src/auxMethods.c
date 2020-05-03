@@ -168,6 +168,21 @@ void timesArrayMatrix(int rows, int columns, double *a, double **matrix, double 
     *result = m;
 }
 
+void dividesArrayMatrix(int rows, int columns, double *a, double **matrix, double ***result){
+
+    double **m;
+
+    m = (double **) calloc(rows, sizeof(double *));
+
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < columns; j++){
+            m[i][j] = matrix[i][j]/a[i];
+        }
+    }
+
+    *result = m;
+}
+
 void addMatrixs(int rows, int columns, double **a, double **b, double ***result){
     double **m;
 
@@ -176,6 +191,20 @@ void addMatrixs(int rows, int columns, double **a, double **b, double ***result)
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < columns; j++){
             m[i][j] = a[i][j]+b[i][j];
+        }
+    }
+
+    *result = m;
+}
+
+void substractMatrixs(int rows, int columns, double **a, double **b, double ***result){
+    double **m;
+
+    m = (double **) calloc(rows, sizeof(double *));
+
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < columns; j++){
+            m[i][j] = a[i][j]-b[i][j];
         }
     }
 
@@ -233,10 +262,10 @@ void addScalarToArray(int length, double *a, double scalar, double *result){
 void transpose(int rows, int columns, double **source, double ***transposed){
     double **m;
 
-    m = (double **) calloc(rows, sizeof(double *));
+    m = (double **) calloc(columns, sizeof(double *));
 
-    for(int i=0; i < rows; i++){
-        for(int j=0; j < columns; j++){
+    for(int i=0; i < columns; i++){
+        for(int j=0; j < rows; j++){
             m[j][i] = source[i][j];
         }
     }
