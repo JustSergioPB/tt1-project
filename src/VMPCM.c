@@ -45,17 +45,17 @@ void vmpcm(int n, int m, double *tau, double ***x_guess, double omega1, double o
     double aux[N];
 
     for(int i = 0; i < N; i++){
-        for(int j = 0; j < n, j++){
+        for(int j = 0; j < n; j++){
             TV1aux[i][j] = tK[i][j];
         }
     }
 
-    int k = 0;
+    int l = 0;
     for(int i = 1; i < n+1; i++){
-        for(int j = 0; j < n, j++){
-            TV2aux[k][j] = tK[i][j];
+        for(int j = 0; j < n; j++){
+            TV2aux[l][j] = tK[i][j];
         }
-        k++;
+        l++;
     }
 
     timesArrayMatrix(N, n, v, TV1aux, &TV1);
@@ -64,9 +64,9 @@ void vmpcm(int n, int m, double *tau, double ***x_guess, double omega1, double o
     for(int i = 0; i < N; i++){
         aux[i] = aux[i]*2;
     }
-    substractMatrix(N, n, TV1, TV2, &TVaux);
+    substractMatrixs(N, n, TV1, TV2, &TVaux);
     dividesArrayMatrix(N, n, aux, TVaux, &TV);
-    for(j = 0; j < n; j++){
+    for(int j = 0; j < n; j++){
         TV[N-1][j] = TV1[N-1][j]/2*N;
     }
 
@@ -80,7 +80,7 @@ void vmpcm(int n, int m, double *tau, double ***x_guess, double omega1, double o
     double **Cx;
     //TODO check how values are asigned and stop condition
     for(int i = 0; i < N; i++){
-        Cx[i][0] = CX[i][0]/2;
+        Cx[i][0] = Cx[i][0]/2;
     }
 
     //TODO change from double to infinity
@@ -92,13 +92,13 @@ void vmpcm(int n, int m, double *tau, double ***x_guess, double omega1, double o
     double **beta_r;
     double **beta_k;
     double **x_new;
-    for(int i = 0; i < 300 && (errorTolerance < err1 || errorTolerance < err2),i++){
+    for(int i = 0; i < 300 && (errorTolerance < err1 || errorTolerance < err2); i++){
 
         double tauTimesOmega2[n];
         double t[n];
         multiplyArrayByScalar(n, tau, omega2, tauTimesOmega2);
         addScalarToArray(n, tauTimesOmega2, omega1, t);
-        twoBodyForceModel(n, m, t, x_guess, mu, &f);
+        twoBodyForceModel(n, m, t, *x_guess, mu, &f);
 
         for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){
@@ -110,12 +110,11 @@ void vmpcm(int n, int m, double *tau, double ***x_guess, double omega1, double o
         beta_k = (double **) calloc(N+1, sizeof(double *));
         x_new = (double **) calloc(N+1, sizeof(double *));
 
-        for(int i = 0, i < m, i++){
+        for(int i = 0; i < m; i++){
 
         }
-        
+
         err2 = err1;
-        err1;
     }
 
     freeMatrix(n+1, tK);
