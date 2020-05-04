@@ -82,11 +82,7 @@ void picardChebyshevDemo(){
    transpose(3, n+1, v_guess, &v_guessTransposed);
 
    // TODO asign x_guess values
-   for(int i = 0; i < 2*(n+1); i++) {
-      for(int j = 0; j < 6; j++){
-         x_guess[i][j] = 
-      }
-   }
+   
 
    vmpcm(n+1, 3, tau, &x_guess, omega1, omega2, errorTolerance);
    // TODO recheck this

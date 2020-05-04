@@ -1,6 +1,6 @@
 #include "VMPCM.h"
 #include "PicardChebyshevDemo.h"
-#include "auxMethods.h"
+#include "algebraFunctions.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -77,25 +77,39 @@ void vmpcm(int n, int m, double *tau, double ***x_guess, double omega1, double o
     }
 
     //TODO check size and freeMatrix later
-    double **Cx;
+    double **Cx = (double **) calloc(n, sizeof(double *));
     //TODO check how values are asigned and stop condition
-    for(int i = 0; i < N; i++){
-        Cx[i][0] = Cx[i][0]/2;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            if(j = 0){
+                Cx[i][j] = tK[i][j]/2;
+            } else {
+                Cx[i][j] = tK[i][j];
+            }
+        }    
     }
 
     //TODO change from double to infinity
-    double err1 = 0.0;
-    double err2 = 0.0;
+    double err1[n];
+    double err2[n];
     double mu = 398600.4415;
     //TODO check size and freeMatrix later
     double **f;
     double **beta_r;
     double **beta_k;
     double **x_new;
-    for(int i = 0; i < 300 && (errorTolerance < err1 || errorTolerance < err2); i++){
+    double tauTimesOmega2[n];
+    double t[n];
+    // Check length once multiplyArrayByMatrix is finished 
+    double SmulBeta_r[m];
+    double maxValues[n];
 
-        double tauTimesOmega2[n];
-        double t[n];
+    int a[n];
+    int b[n];
+    elemGreaterThanValue(n, errorTolerance, err1, a);
+    elemGreaterThanValue(n, errorTolerance, err2, b);
+    for(int i = 0; i < 300 && (any(n, a) == 1 || any(n, b) == 1); i++){
+
         multiplyArrayByScalar(n, tau, omega2, tauTimesOmega2);
         addScalarToArray(n, tauTimesOmega2, omega1, t);
         twoBodyForceModel(n, m, t, *x_guess, mu, &f);
@@ -106,15 +120,42 @@ void vmpcm(int n, int m, double *tau, double ***x_guess, double omega1, double o
             }
         }
 
-        beta_r = (double **) calloc(N, sizeof(double *));
-        beta_k = (double **) calloc(N+1, sizeof(double *));
-        x_new = (double **) calloc(N+1, sizeof(double *));
-
-        for(int i = 0; i < m; i++){
-
+        if(n == 1 || m == 1){
+            int aux;
+            transpose(n, m, f, &f);
+            aux = n;
+            n = m;
+            m = aux;
         }
 
-        err2 = err1;
+        multiplyMatrixs(N, n, n, m, TV, f, &beta_r);
+        //TODO check how operations are done for beta_k 
+        multiplyArrayByMatrix(N, N, m, s, beta_r, SmulBeta_r);
+        multiplyMatrixs(n, n, n, m, Cx, beta_k, &x_new);
+
+        //TODO Check if this condition is necesary
+        //if()
+
+        for(int i = 0; i < n; i++){
+            err2[i] = err1[i];
+        }
+
+        for(int i = 0; i < n; i++){
+            err1[i] = abs(x_new[i][0] - *x_guess[i][0]);
+            for(int j = 0; j < m; j++ ){
+                if(err1[i] < abs(x_new[i][j] - *x_guess[i][j]))
+                    err1[i] = abs(x_new[i][j] - *x_guess[i][j]);
+            }
+        }
+
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++ ){
+                *x_guess[i][j] = x_new[i][j];
+            }
+        }
+
+        elemGreaterThanValue(n, errorTolerance, err1, a);
+        elemGreaterThanValue(n, errorTolerance, err2, b);
     }
 
     freeMatrix(n+1, tK);
@@ -124,6 +165,10 @@ void vmpcm(int n, int m, double *tau, double ***x_guess, double omega1, double o
     freeMatrix(N, TV1aux);
     freeMatrix(N, TV2aux);
     freeMatrix(N, TVaux);
+    freeMatrix(n, Cx);
+    freeMatrix(N, beta_r);
+    freeMatrix(N+1, beta_k);
+    freeMatrix(N+1, x_new);
 } 
 
 /**

@@ -1,19 +1,6 @@
-#include "auxMethods.h"
+#include "algebraFunctions.h"
 #include <stdlib.h>
 #include <math.h>
-/*
-void createMatrix(int rows, int columns, double ***mat)
-{
-    double **m;
-    int i;
-
-    m = (double **) calloc(filas, sizeof(double *));
-    for(i = 0; i < filas; i++)
-         m[i] = (double *) calloc(colum, sizeof(double));
- 
-    *mat = m;
-}*/
-
 
 void freeMatrix(int rows, double **matrix)
 {
@@ -27,6 +14,14 @@ void freeMatrix(int rows, double **matrix)
 void getColumn(int rows, int columnNumber, double **matrix, double *column){
     for(int i = 0; i < rows; i++){
         column[i] = matrix[i][columnNumber];
+    }
+}
+
+void sumMatrixRows(int rows, int columns, double **matrix, double *result){
+    for(int i = 0; i < columns; i++){
+        for(int j = 0; j < rows; i++){
+            result[i] += matrix[i][j]; 
+        }   
     }
 }
 
@@ -54,17 +49,13 @@ void matrixPow(int rows, int columns, int coef, double **matrix, double ***resul
     *result = m;
 }
 
+void multiplyMatrixs(int rowsMatrixA, int colsMatrixA, int rowsMatrixB, int colsMatrixB, double **matrixA, double **matrixB, double ***result){
+    
+}
+
 void arrayPow(int length, int coef, double *a, double *result){
     for(int i = 0; i < length; i++){
         result[i] = pow(a[i], 2);   
-    }
-}
-
-void compressToOneDim(int rows, int columns, double **matrix, double *result){
-    for(int i = 0; i < columns; i++){
-        for(int j = 0; j < rows; i++){
-            result[i] += matrix[i][j]; 
-        }   
     }
 }
 
@@ -283,4 +274,8 @@ void generateIntegerArray(int from, int length, double *a){
 void generateOnesArray(int length, double *a){
     for(int i = 0; i < length; i++)
         a[i] = 1;
+}
+
+void multiplyArrayByMatrix(int length, int rows, int columns, double *a, double **matrix, double *result){
+
 }
