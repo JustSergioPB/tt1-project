@@ -2,6 +2,7 @@
 #include "algebraFunctions.h"
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 #ifdef INFINITY
 /* INFINITY is supported */
 #endif
@@ -65,6 +66,10 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
 
     if(any(columns, idx) == 1){
         double **h = (double **) calloc(rows, sizeof(double *));
+
+        for(int i = 0; i < rows; i++){
+            h[i] = (double *) calloc(columns, sizeof(double));
+        }
 
         int col = truesInArray(columns, idx);
         double r0idx[rows][col];
@@ -133,7 +138,7 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
             }
         } 
 
-        double dot = dotProduct(rows, col, r0idx, v0idx); 
+        double dot = matrixDotProduct(rows, col, r0idx, v0idx);
 
         for(int i =0; i < columns; i++){
             if(idx[i] == 1){
@@ -145,7 +150,7 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
 
 
     double error[columns];
-    double dr0v0Smu = dotProduct(rows, columns, r0, v0)/sqrt(mu);
+    double dr0v0Smu = matrixDotProduct(rows, columns, r0, v0)/sqrt(mu);
     double Smut[columns];
     multiplyArrayByScalar(columns, timeVector, sqrt(mu), Smut);
 

@@ -64,6 +64,7 @@ void picardChebyshevDemo(){
 
    keplerUniversal(3, n+1, r0Matr, v0Matr, t, mu, &rFinMatr, &vFinMatr);
 
+   /*
    double **r_guess = (double **) calloc(3, sizeof(double *));
    double **v_guess = (double **) calloc(3, sizeof(double *));
 
@@ -135,15 +136,16 @@ void picardChebyshevDemo(){
    plotPositionAndVelocity(rvPCM, rFinMatr, vFinMatr, vMag, a, t, x_guess);
    plotMagnitudeErrors(t, PosErr, VelErr);
 
-   freeMatrix(3, rFinMatr);
-   freeMatrix(3, vFinMatr);
-   freeMatrix(3, r0Matr);
-   freeMatrix(3, v0Matr);
    freeMatrix(3, r_guess);
    freeMatrix(3, v_guess);
    freeMatrix(3, r_guessTransposed);
    freeMatrix(3, v_guessTransposed);
-   freeMatrix(2*(n+1), x_guess);
+   freeMatrix(2*(n+1), x_guess);*/
+
+    freeMatrix(3, rFinMatr);
+    freeMatrix(3, vFinMatr);
+    freeMatrix(3, r0Matr);
+    freeMatrix(3, v0Matr);
 }
 
 

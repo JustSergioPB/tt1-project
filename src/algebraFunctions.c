@@ -19,6 +19,7 @@ void getColumn(int rows, int columnNumber, double **matrix, double *column){
 
 void sumMatrixRows(int rows, int columns, double **matrix, double *result){
     for(int i = 0; i < columns; i++){
+        result[i] = 0;
         for(int j = 0; j < rows; j++){
             result[i] += matrix[i][j]; 
         }   
@@ -41,16 +42,23 @@ void matrixPow(int rows, int columns, int coef, double **matrix, double ***resul
     m = (double **) calloc(rows, sizeof(double *));
 
     for(int i = 0; i < rows; i++){
+        m[i] = (double *) calloc(columns, sizeof(double));
         for(int j = 0; j < columns; j++){
-            m[i][j] = pow(matrix[i][j], coef); 
-        }   
+            m[i][j] = pow(matrix[i][j], coef);
+        }
     }
 
     *result = m;
 }
 
 void multiplyMatrixs(int rowsMatrixA, int colsMatrixA, int rowsMatrixB, int colsMatrixB, double **matrixA, double **matrixB, double ***result){
-    
+    double **m;
+
+    //m = (double **) calloc(rows, sizeof(double *));
+
+
+
+    *result = m;
 }
 
 void arrayPow(int length, int coef, double *a, double *result){
@@ -115,13 +123,23 @@ int sign(double num){
 }
 
 
-double dotProduct(int rows, int columns, double **matrixA, double **matrixB){
+double matrixDotProduct(int rows, int columns, double **matrixA, double **matrixB){
     double dotProduct = 0.0;
 
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < columns; j++){
             dotProduct += matrixA[i][j]*matrixB[i][j];
         }
+    }
+
+    return dotProduct;
+}
+
+double arrayDotProduct(int length, double *a, double *b){
+    double dotProduct = 0.0;
+
+    for(int i = 0; i < length; i++){
+        dotProduct += a[i]*b[i];
     }
 
     return dotProduct;
@@ -149,6 +167,7 @@ void timesArrayMatrix(int rows, int columns, double *a, double **matrix, double 
     m = (double **) calloc(rows, sizeof(double *));
 
     for(int i = 0; i < rows; i++){
+        m[i] = (double *) calloc(columns, sizeof(double));
         for(int j = 0; j < columns; j++){
             m[i][j] = matrix[i][j]*a[i];
         }
@@ -164,6 +183,7 @@ void dividesArrayMatrix(int rows, int columns, double *a, double **matrix, doubl
     m = (double **) calloc(rows, sizeof(double *));
 
     for(int i = 0; i < rows; i++){
+        m[i] = (double *) calloc(columns, sizeof(double));
         for(int j = 0; j < columns; j++){
             m[i][j] = matrix[i][j]/a[i];
         }
@@ -178,6 +198,7 @@ void addMatrixs(int rows, int columns, double **a, double **b, double ***result)
     m = (double **) calloc(rows, sizeof(double *));
 
     for(int i = 0; i < rows; i++){
+        m[i] = (double *) calloc(columns, sizeof(double));
         for(int j = 0; j < columns; j++){
             m[i][j] = a[i][j]+b[i][j];
         }
@@ -192,6 +213,7 @@ void substractMatrixs(int rows, int columns, double **a, double **b, double ***r
     m = (double **) calloc(rows, sizeof(double *));
 
     for(int i = 0; i < rows; i++){
+        m[i] = (double *) calloc(columns, sizeof(double));
         for(int j = 0; j < columns; j++){
             m[i][j] = a[i][j]-b[i][j];
         }
@@ -254,6 +276,7 @@ void transpose(int rows, int columns, double **source, double ***transposed){
     m = (double **) calloc(columns, sizeof(double *));
 
     for(int i=0; i < columns; i++){
+        m[i] = (double *) calloc(columns, sizeof(double));
         for(int j=0; j < rows; j++){
             m[j][i] = source[i][j];
         }
