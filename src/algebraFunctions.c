@@ -19,7 +19,7 @@ void getColumn(int rows, int columnNumber, double **matrix, double *column){
 
 void sumMatrixRows(int rows, int columns, double **matrix, double *result){
     for(int i = 0; i < columns; i++){
-        for(int j = 0; j < rows; i++){
+        for(int j = 0; j < rows; j++){
             result[i] += matrix[i][j]; 
         }   
     }
@@ -41,7 +41,7 @@ void matrixPow(int rows, int columns, int coef, double **matrix, double ***resul
     m = (double **) calloc(rows, sizeof(double *));
 
     for(int i = 0; i < rows; i++){
-        for(int j = 0; j < columns; i++){
+        for(int j = 0; j < columns; j++){
             m[i][j] = pow(matrix[i][j], coef); 
         }   
     }
@@ -55,7 +55,7 @@ void multiplyMatrixs(int rowsMatrixA, int colsMatrixA, int rowsMatrixB, int cols
 
 void arrayPow(int length, int coef, double *a, double *result){
     for(int i = 0; i < length; i++){
-        result[i] = pow(a[i], 2);   
+        result[i] = pow(a[i], coef);
     }
 }
 
@@ -91,7 +91,7 @@ void elemLowerOrEqualThanValue(int length, double value, double *a, int *result)
 
 void absArray(int length, double *a, double *result){
     for(int i=0; i < length; i++){
-        result[i] = abs(a[i]);
+        result[i] = fabs(a[i]);
     }
 }
 
@@ -103,14 +103,12 @@ void multiplyArrays(int length, double *a, double *b, double *result){
 
 int sign(double num){
 
-    int result;
+    int result = 0;
 
     if(num > 0){
         result = 1;
     } else if(num < 0) {
         result = -1;
-    } else if(num == 0) {
-        result= 0;
     }
 
     return result;

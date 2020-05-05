@@ -1,5 +1,5 @@
 #include "picardChebyshevDemo.h"
-#include "auxMethods.h"
+#include "algebraFunctions.h"
 #include "keplerUniversal.h"
 #include "VMPCM.h"
 #include <stdlib.h>
@@ -34,8 +34,7 @@ void picardChebyshevDemo(){
    double noisePrct = 0.25;
    
    double tau[n+1];
-   int j = 0; 
-   for(int i = 50; i == 0; i--){
+   for(int i = 50, j = 0; i >= 0; i--){
       tau[j] = cos(j*M_PI/n);
       j++;  
    }
@@ -81,7 +80,7 @@ void picardChebyshevDemo(){
    transpose(3, n+1, r_guess, &r_guessTransposed);
    transpose(3, n+1, v_guess, &v_guessTransposed);
 
-   // TODO asign x_guess values
+   // TODO assign x_guess values
    
 
    vmpcm(n+1, 3, tau, &x_guess, omega1, omega2, errorTolerance);
@@ -129,8 +128,8 @@ void picardChebyshevDemo(){
 
    // @TODO must recheck stop condition
    for(int i= 0; i < n+1; i++){
-      PosErr[i] = abs(PCMPosMag[i] - APosMag[i]);
-      VelErr[i] = abs(PCMVelMag[i] - AVelMag[i]);
+      PosErr[i] = fabs(PCMPosMag[i] - APosMag[i]);
+      VelErr[i] = fabs(PCMVelMag[i] - AVelMag[i]);
    }
 
    plotPositionAndVelocity(rvPCM, rFinMatr, vFinMatr, vMag, a, t, x_guess);

@@ -1,5 +1,5 @@
 #include "keplerUniversal.h"
-#include "auxMethods.h"
+#include "algebraFunctions.h"
 #include <stdlib.h>
 #include <math.h>
 #ifdef INFINITY
@@ -25,14 +25,14 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     double v0Mag[columns];
 
     matrixPow(rows, columns, 2, v0, &v0Pow2);
-    compressToOneDim(rows, columns, v0, v0Compressed);
+    sumMatrixRows(rows, columns, v0, v0Compressed);
 
     double **r0Pow2;
     double r0Compressed[columns];
     double r0Mag[columns];
 
     matrixPow(rows, columns, 2, r0, &r0Pow2);
-    compressToOneDim(rows, columns, r0, r0Compressed);
+    sumMatrixRows(rows, columns, r0, r0Compressed);
 
     double alpha[columns];
 
@@ -97,7 +97,7 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
         double hMag[columns];
 
         matrixPow(rows, columns, 2, h, &hPow2);
-        compressToOneDim(rows, columns, hPow2, hCompressed);
+        sumMatrixRows(rows, columns, hPow2, hCompressed);
 
         double p[columns];
         double s[columns];
