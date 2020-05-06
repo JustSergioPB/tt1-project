@@ -156,6 +156,8 @@ void twoBodyForceModel(int rows, int columns, double *t, double **posvel, double
    double nuR3[rows];
 
    for(int i = 0; i < rows; i++){
+      eta[i] = (double *) calloc(columns, sizeof(double));
+
       rMag[i] = 0.0; 
       
       for(int j = 0; j < 3; j++){

@@ -18,9 +18,10 @@
 * @param x_guess (in/out) [rows x columns] matrix, initial guess of values for the Picar Chebyshev method
 * @param omega1 (in) first omega term 
 * @param omega2 (in) second omega term
-* @param errorTolerance 
+* @param errorTolerance
+* @param varargin
 */
-void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1, double omega2, double errorTolerance){
+void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1, double omega2, double errorTolerance, double varargin){
     int N = rows - 1;
 
     double auxK[rows+1];
@@ -93,7 +94,7 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
         err1[i] = INFINITY;
         err2[i] = INFINITY;
     }
-    double mu = 398600.4415;
+
     //TODO check size and freeMatrix later
     double **f;
     double **beta_r;
@@ -112,7 +113,7 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
 
         multiplyArrayByScalar(rows, tau, omega2, tauTimesOmega2);
         addScalarToArray(rows, tauTimesOmega2, omega1, t);
-        twoBodyForceModel(rows, columns, t, *x_guess, mu, &f);
+        twoBodyForceModel(rows, columns, t, *x_guess, varargin, &f);
 
         for(int k = 0; k < rows; k++){
             for(int j = 0; j < columns; j++){
@@ -180,13 +181,14 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
 * @param tau (in) array
 * @param tK (out) matrix 
 */
-void chebyshevPolynomial(int sizeK, double sizeTau, double *k, double *tau, double ***tK)
+void chebyshevPolynomial(int sizeK, int sizeTau, double *k, double *tau, double ***tK)
 {
     double **m;
 
     m = (double **) calloc(sizeK, sizeof(double *));
 
     for(int i = 0; i < sizeK; i++){
+        m[i] = (double *) calloc(sizeTau, sizeof(double ));
         for(int j = 0; j < sizeTau; j++){
             m[i][j] = cos(k[i]*acos(tau[j]));
         }

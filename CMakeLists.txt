@@ -17,4 +17,4 @@ add_executable(C_project
         src/VMPCM.c
         src/VMPCM.h
         test/kepler_Test.c
-        test/kepler_Test.h test/algebraFun_Test.h test/algebraFun_Test.c)
+        test/kepler_Test.h test/algebraFun_Test.h test/algebraFun_Test.c test/VMPCM_Test.c test/VMPCM_Test.h test/picard_Test.c test/picard_Test.h)
