@@ -65,7 +65,9 @@ int c2c3_Test(){
     double c2[3];
     double c3[3];
 
-    c2c3(3, t, c2, c3);
+    for(int i = 0; i < 3; i++){
+        c2c3S(t[i], &c2[i], &c3[i]);
+    }
 
     double c2Expected[3] = {0.4597, 0.4220, 0.3869};
     double c3Expected[3] = {0.1585, 0.1508, 0.1434};

@@ -18,9 +18,10 @@ int main() {
     getColumn_Test();
     crossProductMatrix_Test();
     getTrueColumns_Test();
+    matrixDotProduct_Test();
 
     //keplerUniversal testing functions
-    //c2c3_Test();
+    c2c3_Test();
     keplerUniversal_Test();
 
     //VMPCM testing functions

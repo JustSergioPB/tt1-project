@@ -137,6 +137,35 @@ int crossProductArray_Test() {
     return 0;
 }
 
+int getColumn_Test(){
+    double **r0 = calloc(3, sizeof(double *));
+
+    for(int i = 0; i < 3; i++){
+        r0[i] = calloc(3, sizeof(double));
+
+        for(int j = 0; j < 3; j++){
+            if(i == j){
+                r0[i][j] = 1;
+            } else{
+                r0[i][j] = 0;
+            }
+        }
+    }
+
+    double result[3];
+
+    getColumn(3,0,r0, result);
+
+    double expected[3] = {1,0,0};
+
+    for(int i = 0; i < 3; i++){
+        assert(expected[i] == result[i]);
+    }
+
+    freeMatrix(3,r0);
+    return 0;
+}
+
 int crossProductMatrix_Test() {
     double **matrix = calloc(3, sizeof(double *));
     double **matrixB = calloc(3, sizeof(double *));
@@ -209,32 +238,14 @@ int getTrueColumns_Test() {
     return 0;
 }
 
-int getColumn_Test(){
-    double **r0 = calloc(3, sizeof(double *));
-
-    for(int i = 0; i < 3; i++){
-        r0[i] = calloc(3, sizeof(double));
-
-        for(int j = 0; j < 3; j++){
-            if(i == j){
-                r0[i][j] = 1;
-            } else{
-                r0[i][j] = 0;
-            }
-        }
-    }
-
-    double result[3];
-
-    getColumn(3,0,r0, result);
-
-    double expected[3] = {1,0,0};
-
-    for(int i = 0; i < 3; i++){
-        assert(expected[i] == result[i]);
-    }
-
-    freeMatrix(3,r0);
+int matrixDotProduct_Test(){
     return 0;
 }
+
+int arrayDotProduct_Test(){
+
+    return 0;
+}
+
+
 

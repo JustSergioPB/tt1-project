@@ -5,10 +5,6 @@
 #include <stdio.h>
 #include <math.h>
 
-#ifdef INFINITY
-/* INFINITY is supported */
-#endif
-
 /**
 * Generic Function wrapper for the Vectorized Picard Chebyshev Method
 *
@@ -87,7 +83,6 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
         }    
     }
 
-    //TODO change from double to infinity
     double err1[rows];
     double err2[rows];
     for(int i =0; i < rows; i++){

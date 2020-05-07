@@ -123,19 +123,18 @@ int sign(double num){
 }
 
 
-double matrixDotProduct(int rows, int columns, double **matrixA, double **matrixB){
-    double dotProduct = 0.0;
+void dotProductMatrix(int rows, int columns, double **matrixA, double **matrixB, double *result){
 
-    for(int i = 0; i < rows; i++){
-        for(int j = 0; j < columns; j++){
-            dotProduct += matrixA[i][j]*matrixB[i][j];
-        }
+    double matrixAColumn[rows];
+    double matrixBColumn[rows];
+    for(int j = 0; j < columns; j++){
+        getColumn(rows, j, matrixA, matrixAColumn);
+        getColumn(rows, j, matrixB, matrixBColumn);
+        result[j] = dotProductArray(rows, matrixAColumn, matrixBColumn);
     }
-
-    return dotProduct;
 }
 
-double arrayDotProduct(int length, double *a, double *b){
+double dotProductArray(int length, double *a, double *b){
     double dotProduct = 0.0;
 
     for(int i = 0; i < length; i++){

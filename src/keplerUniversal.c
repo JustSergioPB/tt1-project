@@ -3,9 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
-#ifdef INFINITY
-/* INFINITY is supported */
-#endif
+
 /**
 * Most efficient way to propagate any type of two body orbit using kepler's equations.
 *
@@ -105,12 +103,13 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
         getTrueColumns(rows, columns, idx, r0, col, &r0idx);
         getTrueColumns(rows, columns, idx, v0, col, &v0idx);
 
-        double dot = matrixDotProduct(rows, col, r0idx, v0idx);
+        double dot[col];
+        dotProductMatrix(rows, col, r0idx, v0idx, dot);
 
         for(int i =0; i < columns; i++){
             if(idx[i] == 1){
                 double a = 1/alpha[i];
-                x0[i] = sign(timeVector[i])*sqrt(-a)*log(-2*mu*alpha[i]*timeVector[i]/(dot + sign(timeVector[i])*sqrt(-mu*a)*(1 - r0Mag[i]*alpha[i])));
+                if(idx[i] == 1) x0[i] = sign(timeVector[i])*sqrt(-a)*log(-2*mu*alpha[i]*timeVector[i]/(dot[i] + sign(timeVector[i])*sqrt(-mu*a)*(1 - r0Mag[i]*alpha[i])));
             }
         }
 
@@ -119,8 +118,10 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     }
 
 
-    double error[columns];
-    double dr0v0Smu = matrixDotProduct(rows, columns, r0, v0)/sqrt(mu);
+    double dotr0v0[columns];
+    double dr0v0Smu[columns];
+    dotProductMatrix(rows, columns, r0, v0, dotr0v0);
+    divideArrayByScalar(columns, dotr0v0, sqrt(mu), dr0v0Smu);
     double Smut[columns];
     multiplyArrayByScalar(columns, timeVector, sqrt(mu), Smut);
 
@@ -134,26 +135,30 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     double X0tOmPsiC3[columns];
     double X02tC2[columns];
 
+    double error[columns];
+    for(int i = 0; i < columns; i++ ){
+        error[i] = INFINITY;
+    }
+
     int a[columns];
+    double absError[columns];
     elemGreaterThanValue(columns, tolerance, error, a);
     while(any(columns, a) == 1){
-
-        arrayPow(columns, 2, x0, x02);
-        multiplyArrays(columns, x0, x02, x03);
-        multiplyArrays(columns, x02, alpha, psi);
-
-        c2c3(columns, psi, c2, c3);
-        
         for(int i = 0; i < columns; i++){
+            x02[i] = pow(x0[i], 2);
+            x03[i] = x02[i]*x0[i];
+            psi[i] = x02[i]*alpha[i];
+            c2c3S(psi[i], &c2[i], &c3[i]);
             X0tOmPsiC3[i] = x0[i]*(1 - psi[i]*c3[i]);
             X02tC2[i] = x02[i]*c2[i];
-            r[i] = X02tC2[i] + dr0v0Smu*X0tOmPsiC3[i] + r0Mag[i]*(1 - psi[i]*c2[i]);
-            xn[i] = x0[i] + (Smut[i] - x03[i]*c3[i] - dr0v0Smu*X02tC2[i] - r0Mag[i]*X0tOmPsiC3[i])/r[i];
+            r[i] = X02tC2[i] + dr0v0Smu[i]*X0tOmPsiC3[i] + r0Mag[i]*(1 - psi[i]*c2[i]);
+            xn[i] = x0[i] + (Smut[i] - x03[i]*c3[i] - dr0v0Smu[i]*X02tC2[i] - r0Mag[i]*X0tOmPsiC3[i])/r[i];
             error[i] = xn[i] - x0[i];
             x0[i] = xn[i];
         }
 
-        elemGreaterThanValue(columns, tolerance, error, a);
+        absArray(columns, error, absError);
+        elemGreaterThanValue(columns, tolerance, absError, a);
     }
 
     double f[columns];
@@ -165,24 +170,24 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
         f[i] = 1 - pow(xn[i], 2)*c2[i]/r0Mag[i];
         g[i] = timeVector[i] - pow(xn[i], 3)*c3[i]/sqrt(mu);
         gdot[i] = 1 - c2[i]*pow(xn[i], 2)/r[i];
-        fdot[i] = xn[i]*(psi[i]*c3[i]-1)*sqrt(mu)/r[i]*r0Mag[i];
+        fdot[i] = xn[i]*(psi[i]*c3[i]-1)*sqrt(mu)/(r[i]*r0Mag[i]);
     }
 
-    double **vFinal = (double **) calloc(rows, sizeof(double *));
-    double **fr0 = (double **) calloc(rows, sizeof(double *));
-    double **gv0 = (double **) calloc(rows, sizeof(double *));
+    double **vFinal;
+    double **fr0;
+    double **gv0;
 
-    timesArrayMatrix(columns, columns, f, r0, &fr0);
-    timesArrayMatrix(columns, columns, g, v0, &gv0);
-    addMatrixs(columns, columns, fr0, gv0, &vFinal);
+    timesArrayMatrix(rows, columns, f, r0, &fr0);
+    timesArrayMatrix(rows, columns, g, v0, &gv0);
+    addMatrixs(rows, columns, fr0, gv0, &vFinal);
 
-    double **rFinal = (double **) calloc(rows, sizeof(double *));
-    double **fdotr0 = (double **) calloc(rows, sizeof(double *));
-    double **gdotv0 = (double **) calloc(rows, sizeof(double *));
+    double **rFinal;
+    double **fdotr0;
+    double **gdotv0;
 
-    timesArrayMatrix(columns, columns, fdot, r0, &fdotr0);
-    timesArrayMatrix(columns, columns, gdot, v0, &gdotv0);
-    addMatrixs(columns, columns, fdotr0, gdotv0, &rFinal);
+    timesArrayMatrix(rows, columns, fdot, r0, &fdotr0);
+    timesArrayMatrix(rows, columns, gdot, v0, &gdotv0);
+    addMatrixs(rows, columns, fdotr0, gdotv0, &rFinal);
 
     freeMatrix(rows, v0Pow2);
     freeMatrix(rows, r0Pow2);
@@ -195,47 +200,21 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     *vA = vFinal;
 }
 
-/**
-* Returns matrix 
-*
-* @param n (in)
-* @param psi (in)
-* @param c2 (out)
-* @param c3 (out)
-*/
-void c2c3(int n, double *psi, double *c2, double *c3)
+void c2c3S(double psi, double *c2, double *c3)
 {
-    int idx[n];
 
-    elemGreaterThanValue(n, 1e-6, psi, idx);
-    if(any(n, idx) == 1){
-        for(int i = 0; i < n; i++){
-            if(idx[i] == 1){
-                c2[i] = (1-cos(sqrt(psi[i])))/psi[i];
-                c3[i] = (sqrt(psi[i]) - sin(sqrt(psi[i])))/sqrt(pow(psi[i],3));
-            }
-        }
-    }
-    
-    elemLowerThanValue(n, -1e-6, psi, idx);
-    if(any(n, idx) == 1){
-        for(int i = 0; i < n; i++){
-            if(idx[i] == 1){
-                c2[i] = (1 - cosh(sqrt(-psi[i])))/psi[i];
-                c3[i] = (sinh(sqrt(-psi[i])) - sqrt(-psi[i]))/sqrt(pow(-psi[i],3));
-            }
-        }
+    if(psi > 1e-6){
+        *c2 = (1-cos(sqrt(psi)))/psi;
+        *c3 = (sqrt(psi) - sin(sqrt(psi)))/sqrt(pow(psi,3));
     }
 
-    double absPsi[n];
-    absArray(n, psi, absPsi);
-    elemLowerOrEqualThanValue(n, -1e-6, absPsi, idx);
-    if(any(n, idx) == 1){
-        for(int i = 0; i < n; i++){
-            if(idx[i] == 1){
-                c2[i] = 0.5;
-                c3[i] = 1/6;
-            }
-        }
+    if(psi < -1e-6){
+        *c2 = (1 - cosh(sqrt(-psi)))/psi;
+        *c3 = (sinh(sqrt(-psi)) - sqrt(-psi))/sqrt(pow(-psi,3));
+    }
+
+    if(fabs(psi) <= 1e-6){
+        *c2 = 0.5;
+        *c3 = 1/6;
     }
 }
