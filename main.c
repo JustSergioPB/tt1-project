@@ -18,8 +18,8 @@ int main() {
     getColumn_Test();
     crossProductMatrix_Test();
     getTrueColumns_Test();
+    arrayDotProduct_Test();
     matrixDotProduct_Test();
-
     //keplerUniversal testing functions
     c2c3_Test();
     keplerUniversal_Test();

@@ -11,5 +11,6 @@ int crossProductArray_Test();
 int getColumn_Test();
 int crossProductMatrix_Test();
 int getTrueColumns_Test();
+int arrayDotProduct_Test();
 int matrixDotProduct_Test();
 #endif //C_PROJECT_ALGEBRAFUN_TEST_H

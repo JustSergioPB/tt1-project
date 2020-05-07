@@ -109,7 +109,7 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
         for(int i =0; i < columns; i++){
             if(idx[i] == 1){
                 double a = 1/alpha[i];
-                if(idx[i] == 1) x0[i] = sign(timeVector[i])*sqrt(-a)*log(-2*mu*alpha[i]*timeVector[i]/(dot[i] + sign(timeVector[i])*sqrt(-mu*a)*(1 - r0Mag[i]*alpha[i])));
+                x0[i] = sign(timeVector[i])*sqrt(-a)*log(-2*mu*alpha[i]*timeVector[i]/(dot[i] + sign(timeVector[i])*sqrt(-mu*a)*(1 - r0Mag[i]*alpha[i])));
             }
         }
 
@@ -148,7 +148,7 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
             x02[i] = pow(x0[i], 2);
             x03[i] = x02[i]*x0[i];
             psi[i] = x02[i]*alpha[i];
-            c2c3S(psi[i], &c2[i], &c3[i]);
+            c2c3(psi[i], &c2[i], &c3[i]);
             X0tOmPsiC3[i] = x0[i]*(1 - psi[i]*c3[i]);
             X02tC2[i] = x02[i]*c2[i];
             r[i] = X02tC2[i] + dr0v0Smu[i]*X0tOmPsiC3[i] + r0Mag[i]*(1 - psi[i]*c2[i]);
@@ -173,21 +173,20 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
         fdot[i] = xn[i]*(psi[i]*c3[i]-1)*sqrt(mu)/(r[i]*r0Mag[i]);
     }
 
+    double **rFinal;
     double **vFinal;
     double **fr0;
     double **gv0;
-
-    timesArrayMatrix(rows, columns, f, r0, &fr0);
-    timesArrayMatrix(rows, columns, g, v0, &gv0);
-    addMatrixs(rows, columns, fr0, gv0, &vFinal);
-
-    double **rFinal;
     double **fdotr0;
     double **gdotv0;
 
+    timesArrayMatrix(rows, columns, f, r0, &fr0);
+    timesArrayMatrix(rows, columns, g, v0, &gv0);
+    addMatrixs(rows, columns, fr0, gv0, &rFinal);
+
     timesArrayMatrix(rows, columns, fdot, r0, &fdotr0);
     timesArrayMatrix(rows, columns, gdot, v0, &gdotv0);
-    addMatrixs(rows, columns, fdotr0, gdotv0, &rFinal);
+    addMatrixs(rows, columns, fdotr0, gdotv0, &vFinal);
 
     freeMatrix(rows, v0Pow2);
     freeMatrix(rows, r0Pow2);
@@ -200,7 +199,7 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     *vA = vFinal;
 }
 
-void c2c3S(double psi, double *c2, double *c3)
+void c2c3(double psi, double *c2, double *c3)
 {
 
     if(psi > 1e-6){
@@ -215,6 +214,6 @@ void c2c3S(double psi, double *c2, double *c3)
 
     if(fabs(psi) <= 1e-6){
         *c2 = 0.5;
-        *c3 = 1/6;
+        *c3 = 1.0/6.0;
     }
 }
