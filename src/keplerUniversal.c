@@ -48,73 +48,21 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     
     // Check if there are any Eliptic/Circular orbits
     if(any(columns, idx) == 1){
-        for(int i = 0; i < columns; i++){
-            if(idx[i] == 1){
-                x0[i] = sqrt(mu)*timeVector[i]*alpha[i];
-            }
-        }
+        calculateElipticCircularOrbits(columns, idx, mu, timeVector, alpha, x0);
     }
     
     double absAlpha[columns];
     absArray(columns, alpha, absAlpha);
     elemLowerThanValue(columns, 0.000001, absAlpha, idx);
     //Check if there are any Parabolic orbits
-
     if(any(columns, idx) == 1){
-        int col = truesInArray(columns, idx);
-        double **h;
-        double **r0idx;
-        double **v0idx;
-        double **hPow2; 
-        double hCompressed[columns];
-        double hMag[columns];
-        double p[columns];
-        double s[columns];
-        double w[columns];
-
-        getTrueColumns(rows, columns, idx, r0, col, &r0idx);
-        getTrueColumns(rows, columns, idx, v0, col, &v0idx);
-        crossProductMatrix(rows, col, r0idx, v0idx, &h);
-        matrixPow(rows, columns, 2, h, &hPow2);
-        sumMatrixRows(rows, columns, hPow2, hCompressed);
-
-        for(int i = 0; i < columns; i++){
-            hMag[i] = sqrt(hCompressed[i]); 
-            p[i] = pow(hMag[i],2)/mu;
-            if(idx[i] == 1) s[i] = (1/(1/tan(3*sqrt(mu/pow(p[i], 3)))))*timeVector[i]/2;
-            w[i] = atan(pow(tan(s[i]), 1/3));
-            if(idx[i] == 1) x0[i] = sqrt(p[i])*2*(1/tan(2*w[i]));
-        }
-
-        freeMatrix(rows, h);
-        freeMatrix(rows, hPow2);
-        freeMatrix(rows, r0idx);
-        freeMatrix(rows, v0idx);
+        calculateParabolicOrbits(rows, columns, idx, r0, v0, timeVector, mu, x0);
     }
 
     //Check if there are any Hyperbolic orbits
     elemLowerThanValue(columns, -0.000001, alpha, idx);
     if(any(columns, idx) == 1){
-
-        int col = truesInArray(columns, idx);
-        double **r0idx;
-        double **v0idx;
-
-        getTrueColumns(rows, columns, idx, r0, col, &r0idx);
-        getTrueColumns(rows, columns, idx, v0, col, &v0idx);
-
-        double dot[col];
-        dotProductMatrix(rows, col, r0idx, v0idx, dot);
-
-        for(int i =0; i < columns; i++){
-            if(idx[i] == 1){
-                double a = 1/alpha[i];
-                x0[i] = sign(timeVector[i])*sqrt(-a)*log(-2*mu*alpha[i]*timeVector[i]/(dot[i] + sign(timeVector[i])*sqrt(-mu*a)*(1 - r0Mag[i]*alpha[i])));
-            }
-        }
-
-        freeMatrix(rows, r0idx);
-        freeMatrix(rows, v0idx);
+        calculateHyperbolicOrbits(rows, columns, idx, r0, v0, alpha, timeVector, r0Mag, mu, x0);
     }
 
 
@@ -197,6 +145,68 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
 
     *rA = rFinal;
     *vA = vFinal;
+}
+
+void calculateElipticCircularOrbits(int columns, int *idx, double mu, double *timeVector, double *alpha, double *x0){
+    for(int i = 0; i < columns; i++){
+        if(idx[i] == 1){
+            x0[i] = sqrt(mu)*timeVector[i]*alpha[i];
+        }
+    }
+}
+
+void calculateParabolicOrbits(int rows, int columns, int *idx, double **r0, double **v0, double *timeVector, double mu, double *x0){
+    int col = truesInArray(columns, idx);
+    double **h;
+    double **r0idx;
+    double **v0idx;
+    double **hPow2;
+    double hCompressed[columns];
+    double hMag[columns];
+    double p[columns];
+    double s[columns];
+    double w[columns];
+
+    getTrueColumns(rows, columns, idx, r0, col, &r0idx);
+    getTrueColumns(rows, columns, idx, v0, col, &v0idx);
+    crossProductMatrix(rows, col, r0idx, v0idx, &h);
+    matrixPow(rows, columns, 2, h, &hPow2);
+    sumMatrixRows(rows, columns, hPow2, hCompressed);
+
+    for(int i = 0; i < columns; i++){
+        hMag[i] = sqrt(hCompressed[i]);
+        p[i] = pow(hMag[i],2)/mu;
+        if(idx[i] == 1) s[i] = (1/(1/tan(3*sqrt(mu/pow(p[i], 3)))))*timeVector[i]/2;
+        w[i] = atan(pow(tan(s[i]), 1/3));
+        if(idx[i] == 1) x0[i] = sqrt(p[i])*2*(1/tan(2*w[i]));
+    }
+
+    freeMatrix(rows, h);
+    freeMatrix(rows, hPow2);
+    freeMatrix(rows, r0idx);
+    freeMatrix(rows, v0idx);
+}
+
+void calculateHyperbolicOrbits(int rows, int columns, int *idx, double **r0, double **v0, double *alpha, double *timeVector, double *r0Mag, double mu, double *x0){
+    int col = truesInArray(columns, idx);
+    double **r0idx;
+    double **v0idx;
+
+    getTrueColumns(rows, columns, idx, r0, col, &r0idx);
+    getTrueColumns(rows, columns, idx, v0, col, &v0idx);
+
+    double dot[col];
+    dotProductMatrix(rows, col, r0idx, v0idx, dot);
+
+    for(int i =0; i < columns; i++){
+        if(idx[i] == 1){
+            double a = 1/alpha[i];
+            x0[i] = sign(timeVector[i])*sqrt(-a)*log(-2*mu*alpha[i]*timeVector[i]/(dot[i] + sign(timeVector[i])*sqrt(-mu*a)*(1 - r0Mag[i]*alpha[i])));
+        }
+    }
+
+    freeMatrix(rows, r0idx);
+    freeMatrix(rows, v0idx);
 }
 
 void c2c3(double psi, double *c2, double *c3)

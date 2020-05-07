@@ -21,7 +21,7 @@ int main() {
     arrayDotProduct_Test();
     matrixDotProduct_Test();
     //keplerUniversal testing functions
-    c2c3_Test();
+    //c2c3_Test();
     keplerUniversal_Test();
 
     //VMPCM testing functions
