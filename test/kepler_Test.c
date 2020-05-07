@@ -11,8 +11,8 @@ int keplerUniversal_Test(){
     double **r0 = calloc(3, sizeof(double *));
     double **v0 = calloc(3, sizeof(double *));
     for(int i = 0; i < 3; i++){
-        r0[i] = calloc(3, sizeof(double *));
-        v0[i] = calloc(3, sizeof(double *));
+        r0[i] = calloc(3, sizeof(double ));
+        v0[i] = calloc(3, sizeof(double ));
         for(int j = 0; j < 3; j++){
             if(i == j){
                 r0[i][j] = 1;

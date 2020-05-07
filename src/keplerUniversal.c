@@ -7,7 +7,7 @@
 /* INFINITY is supported */
 #endif
 /**
-* Most effecient way to propagate any type of two body orbit using kepler's equations.
+* Most efficient way to propagate any type of two body orbit using kepler's equations.
 *
 * @param rows matrixs column's number
 * @param columns matrixs column's number
@@ -22,29 +22,26 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     double tolerance = 1e-9;
     
     double **v0Pow2;
-    double v0Compressed[columns];
+    double v0Pow2Sum[columns];
     double v0Mag[columns];
 
     matrixPow(rows, columns, 2, v0, &v0Pow2);
-    sumMatrixRows(rows, columns, v0, v0Compressed);
+    sumMatrixRows(rows, columns, v0Pow2, v0Pow2Sum);
 
     double **r0Pow2;
-    double r0Compressed[columns];
+    double r0pow2Sum[columns];
     double r0Mag[columns];
 
     matrixPow(rows, columns, 2, r0, &r0Pow2);
-    sumMatrixRows(rows, columns, r0, r0Compressed);
+    sumMatrixRows(rows, columns, r0Pow2, r0pow2Sum);
 
     double alpha[columns];
 
     for(int i=0; i < columns; i++){
-        r0Mag[i] = sqrt(r0Compressed[i]);
-        v0Mag[i] = sqrt(v0Compressed[i]);
+        r0Mag[i] = sqrt(r0pow2Sum[i]);
+        v0Mag[i] = sqrt(v0Pow2Sum[i]);
         alpha[i] = -pow(v0Mag[i],2)/mu + 2/r0Mag[i];
     }
-
-    freeMatrix(rows, v0Pow2);
-    freeMatrix(rows, r0Pow2);
 
     double x0[columns];
 
@@ -61,52 +58,27 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     }
     
     double absAlpha[columns];
+    absArray(columns, alpha, absAlpha);
     elemLowerThanValue(columns, 0.000001, absAlpha, idx);
     //Check if there are any Parabolic orbits
 
     if(any(columns, idx) == 1){
-        double **h = (double **) calloc(rows, sizeof(double *));
-
-        for(int i = 0; i < rows; i++){
-            h[i] = (double *) calloc(columns, sizeof(double));
-        }
-
         int col = truesInArray(columns, idx);
-        double r0idx[rows][col];
-        double v0idx[rows][col];
-        double r0column[rows]; 
-        double v0column[rows];
-
-        for(int i = 0; i < columns; i++){
-            getColumn(rows, i, r0, r0column);
-            getColumn(rows, i, v0, v0column);
-            for(int j = 0; j < rows; j++){
-                r0idx[j][i] = r0column[j];
-                v0idx[j][i] = v0column[j];
-            }
-        }  
- 
-        double crossColumn[rows];
-
-        for(int i = 0; i < columns; i++){
-            getColumn(rows, i, r0, r0column);
-            getColumn(rows, i, v0, v0column);
-            crossProduct(rows, r0column, v0column, crossColumn);
-            for(int j = 0; j < rows; j++){
-                h[j][i] = r0column[j];
-            }
-        } 
-        
+        double **h;
+        double **r0idx;
+        double **v0idx;
         double **hPow2; 
         double hCompressed[columns];
         double hMag[columns];
-
-        matrixPow(rows, columns, 2, h, &hPow2);
-        sumMatrixRows(rows, columns, hPow2, hCompressed);
-
         double p[columns];
         double s[columns];
         double w[columns];
+
+        getTrueColumns(rows, columns, idx, r0, col, &r0idx);
+        getTrueColumns(rows, columns, idx, v0, col, &v0idx);
+        crossProductMatrix(rows, col, r0idx, v0idx, &h);
+        matrixPow(rows, columns, 2, h, &hPow2);
+        sumMatrixRows(rows, columns, hPow2, hCompressed);
 
         for(int i = 0; i < columns; i++){
             hMag[i] = sqrt(hCompressed[i]); 
@@ -117,6 +89,9 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
         }
 
         freeMatrix(rows, h);
+        freeMatrix(rows, hPow2);
+        freeMatrix(rows, r0idx);
+        freeMatrix(rows, v0idx);
     }
 
     //Check if there are any Hyperbolic orbits
@@ -124,19 +99,11 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     if(any(columns, idx) == 1){
 
         int col = truesInArray(columns, idx);
-        double **r0idx = (double **) calloc(rows, sizeof(double *)); 
-        double **v0idx = (double **) calloc(rows, sizeof(double *));
-        double r0column[rows];
-        double v0column[rows];
+        double **r0idx;
+        double **v0idx;
 
-        for(int i = 0; i < columns; i++){
-            getColumn(rows, i, r0, r0column);
-            getColumn(rows, i, v0, v0column);
-            for(int j = 0; j < rows; j++){
-                r0idx[j][i] = r0column[j];
-                v0idx[j][i] = v0column[j];
-            }
-        } 
+        getTrueColumns(rows, columns, idx, r0, col, &r0idx);
+        getTrueColumns(rows, columns, idx, v0, col, &v0idx);
 
         double dot = matrixDotProduct(rows, col, r0idx, v0idx);
 
@@ -146,6 +113,9 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
                 x0[i] = sign(timeVector[i])*sqrt(-a)*log(-2*mu*alpha[i]*timeVector[i]/(dot + sign(timeVector[i])*sqrt(-mu*a)*(1 - r0Mag[i]*alpha[i])));
             }
         }
+
+        freeMatrix(rows, r0idx);
+        freeMatrix(rows, v0idx);
     }
 
 
@@ -214,6 +184,8 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     timesArrayMatrix(columns, columns, gdot, v0, &gdotv0);
     addMatrixs(columns, columns, fdotr0, gdotv0, &rFinal);
 
+    freeMatrix(rows, v0Pow2);
+    freeMatrix(rows, r0Pow2);
     freeMatrix(rows, fr0);
     freeMatrix(rows, gv0);
     freeMatrix(rows, fdotr0);

@@ -2,4 +2,13 @@
 #define C_PROJECT_ALGEBRAFUN_TEST_H
 int matrixPow_Test();
 int sumMatrixRows_Test();
+int elemGreaterThanValue_Test();
+int elemLowerThanValue_Test();
+int absArray_Test();
+int any_Test();
+int truesInArray_Test();
+int crossProductArray_Test();
+int getColumn_Test();
+int crossProductMatrix_Test();
+int getTrueColumns_Test();
 #endif //C_PROJECT_ALGEBRAFUN_TEST_H

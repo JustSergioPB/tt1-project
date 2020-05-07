@@ -12,7 +12,9 @@ void addMatrixs(int rows, int columns, double **a, double **b, double ***result)
 void substractMatrixs(int rows, int columns, double **a, double **b, double ***result);
 void transpose(int rows, int columns, double **source, double ***transposed);
 void multiplyMatrixs(int rowsMatrixA, int colsMatrixA, int rowsMatrixB, int colsMatrixB, double **matrixA, double **matrixB, double ***result);
+void crossProductMatrix(int rows, int columns, double **matrixA, double **matrixB, double ***result);
 double matrixDotProduct(int rows, int columns, double **matrixA, double **matrixB);
+void getTrueColumns(int rows, int columns, int *logicArray, double **matrixA, int resultColumns, double ***result);
 
 void generateOnesArray(int length, double *a);
 void generateIntegerArray(int from, int length, double *a);
@@ -26,7 +28,7 @@ int truesInArray(int length, int *a);
 int sign(double num);
 int any(int length, int *a);
 double arrayDotProduct(int length, double *a, double *b);
-void crossProduct(int length, double *a, double *b, double *cross);
+void crossProductArray(double *a, double *b, double *cross);
 double sumArrayElements(int length, double *a);
 void addScalarToArray(int length, double *a, double scalar, double *result);
 void multiplyArrayByScalar(int length, double *a, double scalar, double *result);

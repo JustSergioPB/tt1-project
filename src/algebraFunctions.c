@@ -21,7 +21,7 @@ void sumMatrixRows(int rows, int columns, double **matrix, double *result){
     for(int i = 0; i < columns; i++){
         result[i] = 0;
         for(int j = 0; j < rows; j++){
-            result[i] += matrix[i][j]; 
+            result[i] += matrix[j][i];
         }   
     }
 }
@@ -235,10 +235,51 @@ int any(int length, int *a){
     return any;
 }
 
-void crossProduct(int length, double *a, double *b, double *cross){
+void crossProductArray(double *a, double *b, double *cross){
     cross[0] = a[1]*b[2] - a[2]*b[1];
     cross[1] = a[2]*b[0] - a[0]*b[2];
     cross[2] = a[0]*b[1] - a[1]*b[0];
+}
+
+void crossProductMatrix(int rows, int columns, double **matrixA, double **matrixB, double ***result){
+    double crossColumn[rows];
+    double matrixAColumn[rows];
+    double matrixBColumn[rows];
+    double **m;
+
+    m = (double **) calloc(rows, sizeof(double *));
+
+    for(int i = 0; i < rows; i++)
+        m[i] = (double *) calloc(columns, sizeof(double));
+
+    for(int j = 0; j < columns; j++){
+        getColumn(rows, j, matrixA, matrixAColumn);
+        getColumn(rows, j, matrixB, matrixBColumn);
+        crossProductArray(matrixAColumn, matrixBColumn, crossColumn);
+        for(int i = 0; i < rows; i++){
+            m[i][j] = crossColumn[i];
+        }
+    }
+
+    *result = m;
+}
+
+void getTrueColumns(int rows, int columns, int *logicArray, double **matrixA, int resultColumns, double ***result){
+    double **m;
+
+    m = (double **) calloc(rows, sizeof(double *));
+
+    for(int i = 0; i < rows; i++){
+        m[i] = (double *) calloc(resultColumns, sizeof(double));
+        for(int j = 0, k = 0; j < columns; j++){
+            if(logicArray[j] == 1){
+                m[i][k] = matrixA[i][j];
+                k++;
+            }
+        }
+    }
+
+    *result = m;
 }
 
 double sumArrayElements(int length, double *a){
