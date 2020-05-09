@@ -19,31 +19,28 @@ int twoBodyForceModel_Test(){
     for(int i = 0; i < 3; i++){
         x_guess[i] = (double *) calloc(6, sizeof(double ));
         for(int j = 0; j < 6; j++){
-            if(i == j || i == j+3){
-                x_guess[i][j] = 1;
-            } else {
-                x_guess[i][j] = 0;
-            }
+            x_guess[i][j] = (i == j || i == j+3) ? 1 : 0;
         }
     }
 
-    double **f;
+    double **result;
 
-    twoBodyForceModel(3,6,t,x_guess, mu, &f);
+    twoBodyForceModel(3,6,t,x_guess, mu, &result);
 
+    double constant = 1e5;
     double expected[3][6] = {
-            {1e6 * 0.0249, 1e6 * 1.1614, 1e6 * 1.5238, 0,0,0},
-            {1e6 * 0.0249, 1e6 * 1.1614, 1e6 * 1.5238, 0,0,0},
-            {1e6 * 0.0249, 1e6 * 1.1614, 1e6 * 1.5238, 0,0,0}
+            {0, 0, 0, -3.986 * constant,0,0},
+            {0, 0, 0, 0,-3.986 * constant,0},
+            {0, 0, 0, 0,0,-3.986 * constant}
     };
 
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 6; j++){
-            assert(f[i][j] == expected[i][j]);
+            assert(result[i][j] == expected[i][j]);
         }
     }
 
-    freeMatrix(3, f);
+    freeMatrix(3, result);
 
     return 0;
 }

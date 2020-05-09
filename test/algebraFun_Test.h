@@ -13,4 +13,9 @@ int crossProductMatrix_Test();
 int getTrueColumns_Test();
 int arrayDotProduct_Test();
 int matrixDotProduct_Test();
+int generateIntegerArray_Test();
+int generateOnesArray_Test();
+int timesArrayMatrix_Test();
+int substractMatrixs_Test();
+int dividesArrayMatrix_Test();
 #endif //C_PROJECT_ALGEBRAFUN_TEST_H

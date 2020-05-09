@@ -168,7 +168,7 @@ void timesArrayMatrix(int rows, int columns, double *a, double **matrix, double 
     for(int i = 0; i < rows; i++){
         m[i] = (double *) calloc(columns, sizeof(double));
         for(int j = 0; j < columns; j++){
-            m[i][j] = matrix[i][j]*a[i];
+            m[i][j] = matrix[i][j]*a[j];
         }
     }
 
@@ -184,7 +184,7 @@ void dividesArrayMatrix(int rows, int columns, double *a, double **matrix, doubl
     for(int i = 0; i < rows; i++){
         m[i] = (double *) calloc(columns, sizeof(double));
         for(int j = 0; j < columns; j++){
-            m[i][j] = matrix[i][j]/a[i];
+            m[i][j] = matrix[i][j]/a[j];
         }
     }
 

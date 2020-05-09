@@ -21,16 +21,14 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
     int N = rows - 1;
 
     double auxK[rows+1];
-    double **tK = (double **) calloc(rows+1, sizeof(double *));
+    double **tK;
     generateIntegerArray(0, rows+1, auxK);
     chebyshevPolynomial(rows+1, rows, auxK, tau, &tK);
 
     double v[rows];
     generateOnesArray(rows+1, v);
     for(int i = 0; i < rows; i++){
-        if(i > 2 && i < rows-1){
-            v[i] = 2*v[i]/N;
-        }
+        if(i > 2 && i < rows-1) v[i] = 2*v[i]/N;
     }
 
     double **TV1;
@@ -42,12 +40,14 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
     double aux[N];
 
     for(int i = 0; i < N; i++){
+        TV1aux[i] = (double *) calloc(rows, sizeof(double ));
         for(int j = 0; j < rows; j++){
             TV1aux[i][j] = tK[i][j];
         }
     }
 
     for(int i = 1, k = 0; i < rows+1; i++){
+        TV2aux[i] = (double *) calloc(rows, sizeof(double ));
         for(int j = 0; j < rows; j++){
             TV2aux[k][j] = tK[i][j];
         }
@@ -57,9 +57,7 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
     timesArrayMatrix(N, rows, v, TV1aux, &TV1);
     timesArrayMatrix(N, rows, v, TV2aux, &TV2);
     generateIntegerArray(1, N, aux);
-    for(int i = 0; i < N; i++){
-        aux[i] = aux[i]*2;
-    }
+    multiplyArrayByScalar(N, aux, 2, aux);
     substractMatrixs(N, rows, TV1, TV2, &TVaux);
     dividesArrayMatrix(N, rows, aux, TVaux, &TV);
     for(int j = 0; j < rows; j++){
@@ -75,11 +73,7 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
     double **Cx = (double **) calloc(rows, sizeof(double *));
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < rows; j++){
-            if(j == 0){
-                Cx[i][j] = tK[i][j]/2;
-            } else {
-                Cx[i][j] = tK[i][j];
-            }
+            Cx[i][j] = (j == 0) ? tK[i][j]/2 : tK[i][j];
         }    
     }
 
@@ -130,7 +124,13 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
         multiplyMatrixs(rows, rows, rows, columns, Cx, beta_k, &x_new);
 
         //TODO Check if this condition is necesary
-        //if()
+        //if(){
+        //  int aux1;
+        //  transpose(rows, columns, x_new, &x_new);
+        //  aux1 = rows;
+        //  rows = columns;
+        //  columns = aux1;
+        //}
 
         for(int k = 0; k < rows; k++){
             err2[k] = err1[k];

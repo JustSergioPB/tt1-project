@@ -142,7 +142,6 @@ int getColumn_Test(){
 
     for(int i = 0; i < 3; i++){
         r0[i] = calloc(3, sizeof(double));
-
         for(int j = 0; j < 3; j++){
             if(i == j){
                 r0[i][j] = 1;
@@ -239,10 +238,171 @@ int getTrueColumns_Test() {
 }
 
 int matrixDotProduct_Test(){
+    double a[3] = {1,1,1};
+    double b[3] = {1,2,3};
+
+    assert(6 == dotProductArray(3,a,b));
+
     return 0;
 }
 
 int arrayDotProduct_Test(){
+    double **r0 = calloc(3, sizeof(double *));
+    double **v0 = calloc(3, sizeof(double *));
+
+    for(int i = 0; i < 3; i++){
+        r0[i] = calloc(3, sizeof(double));
+        v0[i] = calloc(3, sizeof(double));
+        for(int j = 0; j < 3; j++){
+            v0[i][j] = j+1;
+            if(i == j){
+                r0[i][j] = 1;
+            } else{
+                r0[i][j] = 0;
+            }
+        }
+    }
+
+    double result[3];
+
+    dotProductMatrix(3,3, r0, v0, result);
+
+    double expected[3] = {1,2,3};
+
+    for(int i = 0; i < 3; i++){
+        assert(expected[i] == result[i]);
+    }
+
+    return 0;
+}
+
+int generateIntegerArray_Test(){
+    double v[3];
+
+    generateIntegerArray(0,3,v);
+
+    double expected[3] = {0,1,2};
+
+    for(int i = 0; i < 3; i++){
+        assert(expected[i] == v[i]);
+    }
+
+    return 0;
+}
+
+int generateOnesArray_Test(){
+    double v[3];
+
+    generateOnesArray(3,v);
+
+    double expected[3] = {1,1,1};
+
+    for(int i = 0; i < 3; i++){
+        assert(expected[i] == v[i]);
+    }
+    return 0;
+}
+
+int timesArrayMatrix_Test(){
+    double **matrix = calloc(3, sizeof(double *));
+
+    for(int i = 0; i < 3; i++){
+        matrix[i] = calloc(4, sizeof(double));
+        for(int j = 0; j < 4; j++){
+            if(i == j || j == 3){
+                matrix[i][j] = 1;
+            } else {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+
+    double arr[4] = {1,2,3,4};
+    double **result;
+
+    timesArrayMatrix(3,4,arr,matrix, &result);
+
+    double expected[3][4] = {
+            {1,0,0,4},
+            {0,2,0,4},
+            {0,0,3,4}
+    };
+
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 4; j++) {
+            assert(expected[i][j] == result[i][j]);
+        }
+    }
+
+    return 0;
+}
+
+int substractMatrixs_Test(){
+    double **r0 = calloc(3, sizeof(double *));
+    double **v0 = calloc(3, sizeof(double *));
+
+    for(int i = 0; i < 3; i++){
+        r0[i] = calloc(3, sizeof(double));
+        v0[i] = calloc(3, sizeof(double));
+        for(int j = 0; j < 3; j++){
+            if(i == j){
+                r0[i][j] = 1;
+                v0[i][j] = 1;
+            } else{
+                r0[i][j] = 0;
+                v0[i][j] = 0;
+            }
+        }
+    }
+    double **result;
+
+    substractMatrixs(3,3,r0,v0,&result);
+
+    double expected[3][3] = {
+            {0,0,0},
+            {0,0,0},
+            {0,0,0}
+    };
+
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++) {
+            assert(expected[i][j] == result[i][j]);
+        }
+    }
+
+    return 0;
+}
+
+int dividesArrayMatrix_Test(){
+    double **matrix = calloc(3, sizeof(double *));
+
+    for(int i = 0; i < 3; i++){
+        matrix[i] = calloc(4, sizeof(double));
+        for(int j = 0; j < 4; j++){
+            if(i == j || j == 3){
+                matrix[i][j] = 1;
+            } else {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+
+    double arr[4] = {1,2,3,4};
+    double **result;
+
+    dividesArrayMatrix(3,4,arr,matrix, &result);
+
+    double expected[3][4] = {
+            {1.0,0.0,0,0.25},
+            {0.0,0.5,0,0.25},
+            {0.0,0.0,0.3333,0.25}
+    };
+
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 4; j++) {
+            assert(expected[i][j] == result[i][j]);
+        }
+    }
 
     return 0;
 }
