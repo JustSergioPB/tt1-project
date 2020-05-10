@@ -3,6 +3,7 @@
 
 void freeMatrix(int rows, double **matrix);
 void getColumn(int rows, int columnNumber, double **matrix, double *column);
+void getRow(int columns, int rowNumber, double **matrix, double *row);
 void matrixPow(int rows, int columns, int coef, double **matrix, double ***result);
 void sumMatrixRows(int rows, int columns, double **matrix, double *result);
 void timesArrayArray(int lengthA, int lenghtB, double *a, double *b, double ***result);
@@ -11,17 +12,18 @@ void dividesArrayMatrix(int rows, int columns, double *a, double **matrix, doubl
 void addMatrixs(int rows, int columns, double **a, double **b, double ***result);
 void substractMatrixs(int rows, int columns, double **a, double **b, double ***result);
 void transpose(int rows, int columns, double **source, double ***transposed);
-void multiplyMatrixs(int rowsMatrixA, int colsMatrixA, int rowsMatrixB, int colsMatrixB, double **matrixA, double **matrixB, double ***result);
+void multiplyMatrixs(int rowsMatrixA, int colsMatrixA, int colsMatrixB, double **matrixA, double **matrixB, double ***result);
 void crossProductMatrix(int rows, int columns, double **matrixA, double **matrixB, double ***result);
 void dotProductMatrix(int rows, int columns, double **matrixA, double **matrixB, double *result);
 void getTrueColumns(int rows, int columns, int *logicArray, double **matrixA, int resultColumns, double ***result);
+void getRows(int columns, int from, int until, double **matrix, double ***result);
+void multiplyMatrixByScalar(int rows, int columns, double scalar, double **matrix, double ***result);
 
 void generateOnesArray(int length, double *a);
 void generateIntegerArray(int from, int length, double *a);
 void arrayPow(int length, int coef, double *a, double *result);
 void elemGreaterThanValue(int length, double value, double *a, int *result);
 void elemLowerThanValue(int length, double value, double *a, int *result);
-void elemLowerOrEqualThanValue(int length, double value, double *a, int *result);
 void absArray(int length, double *a, double *result);
 void multiplyArrays(int length, double *a, double *b, double *result);
 int truesInArray(int length, int *a);

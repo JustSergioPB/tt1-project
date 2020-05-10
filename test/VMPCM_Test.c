@@ -14,11 +14,7 @@ int VMPCM_Test(){
     for(int i = 0; i < 3; i++){
         x_guess[i] = (double *) calloc(6, sizeof(double ));
         for(int j = 0; j < 6; j++){
-            if(i == j || i == j+3){
-                x_guess[i][j] = 1;
-            } else {
-                x_guess[i][j] = 0;
-            }
+            x_guess[i][j] = (i == j || i == j+3) ? 1 : 0;
         }
     }
 

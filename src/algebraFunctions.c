@@ -17,6 +17,12 @@ void getColumn(int rows, int columnNumber, double **matrix, double *column){
     }
 }
 
+void getRow(int columns, int rowNumber, double **matrix, double *row){
+    for(int j = 0; j < columns; j++){
+        row[j] = matrix[rowNumber][j];
+    }
+}
+
 void sumMatrixRows(int rows, int columns, double **matrix, double *result){
     for(int i = 0; i < columns; i++){
         result[i] = 0;
@@ -51,12 +57,22 @@ void matrixPow(int rows, int columns, int coef, double **matrix, double ***resul
     *result = m;
 }
 
-void multiplyMatrixs(int rowsMatrixA, int colsMatrixA, int rowsMatrixB, int colsMatrixB, double **matrixA, double **matrixB, double ***result){
+void multiplyMatrixs(int rowsMatrixA, int colsMatrixA, int colsMatrixB, double **matrixA, double **matrixB, double ***result){
     double **m;
 
-    //m = (double **) calloc(rows, sizeof(double *));
+    m = (double **) calloc(rowsMatrixA, sizeof(double *));
 
+    double rowA[colsMatrixA];
+    double columnB[colsMatrixA];
 
+    for(int i = 0; i < rowsMatrixA; i++) {
+        m[i] = (double *) calloc(colsMatrixB, sizeof(double ));
+        for(int j = 0; j < colsMatrixB; j++){
+            getRow(colsMatrixA, i, matrixA, rowA);
+            getColumn(colsMatrixA, j, matrixB, columnB);
+            m[i][j] = dotProductArray(colsMatrixA, rowA, columnB);
+        }
+    }
 
     *result = m;
 }
@@ -80,16 +96,6 @@ void elemGreaterThanValue(int length, double value, double *a, int *result){
 void elemLowerThanValue(int length, double value, double *a, int *result){
     for(int i=0; i < length; i++){
         if(a[i] < value){
-            result[i] = 1;
-        } else {
-            result[i] = 0;
-        }
-    }
-}
-
-void elemLowerOrEqualThanValue(int length, double value, double *a, int *result){
-    for(int i=0; i < length; i++){
-        if(a[i] <= value){
             result[i] = 1;
         } else {
             result[i] = 0;
@@ -275,6 +281,39 @@ void getTrueColumns(int rows, int columns, int *logicArray, double **matrixA, in
                 m[i][k] = matrixA[i][j];
                 k++;
             }
+        }
+    }
+
+    *result = m;
+}
+
+void getRows(int columns, int from, int until, double **matrix, double ***result){
+    double **m;
+
+    int resultRows = until - from + 1;
+
+    m = (double **) calloc(resultRows, sizeof(double *));
+
+    for(int i = 0, k = from; k <= until; i++){
+        m[i] = (double *) calloc(columns, sizeof(double));
+        for(int j = 0; j < columns; j++){
+            m[i][j] = matrix[k][j];
+        }
+        k++;
+    }
+
+    *result = m;
+}
+
+void multiplyMatrixByScalar(int rows, int columns, double scalar, double **matrix, double ***result){
+    double **m;
+
+    m = (double **) calloc(rows, sizeof(double *));
+
+    for(int i = 0; i < rows; i++){
+        m[i] = (double *) calloc(columns, sizeof(double));
+        for(int j = 0; j < columns; j++){
+            m[i][j] = matrix[i][j]*scalar;
         }
     }
 

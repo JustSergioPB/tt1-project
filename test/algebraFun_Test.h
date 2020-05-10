@@ -18,4 +18,8 @@ int generateOnesArray_Test();
 int timesArrayMatrix_Test();
 int substractMatrixs_Test();
 int dividesArrayMatrix_Test();
+int getRows_Test();
+int multiplyMatrixByScalar_Test();
+int getRow_Test();
+int multiplyMatrixs_Test();
 #endif //C_PROJECT_ALGEBRAFUN_TEST_H

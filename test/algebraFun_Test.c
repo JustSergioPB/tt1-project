@@ -393,13 +393,128 @@ int dividesArrayMatrix_Test(){
     dividesArrayMatrix(3,4,arr,matrix, &result);
 
     double expected[3][4] = {
-            {1.0,0.0,0,0.25},
-            {0.0,0.5,0,0.25},
+            {1.0,0.0,0.0,   0.25},
+            {0.0,0.5,0.0,   0.25},
             {0.0,0.0,0.3333,0.25}
     };
 
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 4; j++) {
+            assert(expected[i][j] == result[i][j]);
+        }
+    }
+
+    return 0;
+}
+
+int getRows_Test(){
+    double **matrix = calloc(3, sizeof(double *));
+
+    for(int i = 0; i < 3; i++){
+        matrix[i] = calloc(3, sizeof(double));
+        for(int j = 0; j < 3; j++){
+            matrix[i][j] = (i == j) ? 1 : 0;
+        }
+    }
+
+    double **result;
+
+    getRows(3, 0,1, matrix, &result);
+
+    double expected[2][3] = {
+            {1, 0, 0},
+            {0, 1, 0}
+    };
+
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 3; j++) {
+            assert(expected[i][j] == result[i][j]);
+        }
+    }
+
+    return 0;
+}
+
+int multiplyMatrixByScalar_Test(){
+    double **matrix = calloc(3, sizeof(double *));
+
+    for(int i = 0; i < 3; i++){
+        matrix[i] = calloc(3, sizeof(double));
+        for(int j = 0; j < 3; j++){
+            matrix[i][j] = (i == j) ? 1 : 0;
+        }
+    }
+
+    double **result;
+
+    multiplyMatrixByScalar(3,3,2 ,matrix, &result);
+
+    double expected[3][3] = {
+            {2, 0, 0},
+            {0, 2, 0},
+            {0, 0, 2}
+    };
+
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++) {
+            assert(expected[i][j] == result[i][j]);
+        }
+    }
+
+    return 0;
+}
+
+int getRow_Test(){
+    double **matrix = calloc(3, sizeof(double *));
+
+    for(int i = 0; i < 3; i++){
+        matrix[i] = calloc(3, sizeof(double));
+        for(int j = 0; j < 3; j++){
+            matrix[i][j] = (i == 0) ? j + 1: 1;
+        }
+    }
+
+    double row[3];
+
+    getRow(3, 0, matrix, row);
+
+    double expected[3] = {1,2,3};
+
+    for(int i =0; i < 3; i++){
+        assert(expected[i] == row[i]);
+    }
+
+    return 0;
+}
+
+int multiplyMatrixs_Test(){
+    double **matrix = calloc(3, sizeof(double *));
+    double **matrixB = calloc(2, sizeof(double *));
+    double **result;
+
+    for(int i = 0; i < 2; i++){
+        matrixB[i] = calloc(3, sizeof(double));
+        for(int j = 0; j < 3; j++){
+            matrixB[i][j] = j+1;
+        }
+    }
+
+    for(int i = 0; i < 3; i++){
+        matrix[i] = calloc(2, sizeof(double));
+        for(int j = 0; j < 2; j++){
+            matrix[i][j] = (i == j) ? 1 : 0;
+        }
+    }
+
+    multiplyMatrixs(2,3,2, matrixB, matrix, &result);
+
+    double expected[2][2] = {
+            {1,2},
+            {1,2}
+    };
+
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 2; j++) {
             assert(expected[i][j] == result[i][j]);
         }
     }
