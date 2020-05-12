@@ -1,13 +1,12 @@
 #include "keplerUniversal.h"
 #include <assert.h>
 #include "kepler_Test.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include "algebraFunctions.h"
 
+
 int keplerUniversal_Test(){
 
-    printf("keplerUniversal_test started running");
     double **r0 = calloc(3, sizeof(double *));
     double **v0 = calloc(3, sizeof(double *));
     for(int i = 0; i < 3; i++){
@@ -55,12 +54,11 @@ int keplerUniversal_Test(){
     freeMatrix(3, r0);
     freeMatrix(3, v0);
 
-    printf("keplerUniversal_test run with no troubles");
     return 0;
 }
 
 int c2c3_Test(){
-    printf("c2c3_test started running");
+
     double t[3] = {1,2,3};
     double c2[3];
     double c3[3];
@@ -80,6 +78,5 @@ int c2c3_Test(){
         assert(c3Expected[i] == c3[i]);
     }
 
-    printf("c2c3_test run with no troubles");
     return 0;
 }

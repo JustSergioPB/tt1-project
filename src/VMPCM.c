@@ -63,17 +63,9 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
         }    
     }
 
-    double err1[rows];
-    double err2[rows];
-    for(int i =0; i < rows; i++){
-        err1[i] = INFINITY;
-        err2[i] = INFINITY;
-    }
-
     double **F;
     double **beta_r;
     double **beta_k = (double **) calloc(N+1, sizeof(double *));
-    for(int i = 0; i < N+1; i++) beta_k[i] = (double *) calloc(columns, sizeof(double));
     double **x_new;
     double tauTimesOmega2[rows];
     double t[rows];
@@ -81,6 +73,13 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
 
     int a[rows];
     int b[rows];
+    double err1[rows];
+    double err2[rows];
+    for(int i =0; i < rows; i++){
+        err1[i] = INFINITY;
+        err2[i] = INFINITY;
+    }
+
     elemGreaterThanValue(rows, errorTolerance, err1, a);
     elemGreaterThanValue(rows, errorTolerance, err2, b);
     for(int i = 0; i < 300 && (any(rows, a) == 1 || any(rows, b) == 1); i++){
@@ -90,14 +89,13 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
         twoBodyForceModel(rows, columns, t, *x_guess, varargin, &F);
         multiplyMatrixByScalar(rows, columns, omega2, F, &F);
 
-        //TODO Check if this condition is necesary
-
         multiplyMatrixs(N, rows, columns, TV, F, &beta_r);
 
         beta_k[0] = (double *) calloc(columns, sizeof(double));
         for(int j = 0; j < columns; j++){
             getColumn(N, j, beta_r, beta_rColumn);
-            beta_k[0][j] = dotProductArray(N, beta_rColumn, s) + 2* *x_guess[0][j];
+            double dot = dotProductArray(N, beta_rColumn, s);
+            beta_k[0][j] = isnan(dot) ? NAN : dot + 2* *x_guess[0][j];
         }
 
         for(int l = 0, k = 1; l < N; l++){
@@ -109,22 +107,13 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
 
         multiplyMatrixs(rows, rows, columns, Cx, beta_k, &x_new);
 
-        //TODO Check if this condition is necesary
-
         for(int k = 0; k < rows; k++){
             err2[k] = err1[k];
-        }
-
-        for(int k = 0; k < rows; k++){
             err1[k] = fabs(x_new[k][0] - *x_guess[k][0]);
             for(int j = 0; j < columns; j++ ){
                 if(err1[k] < fabs(x_new[k][j] - *x_guess[k][j]))
                     err1[k] = fabs(x_new[k][j] - *x_guess[k][j]);
-            }
-        }
 
-        for(int k = 0; k < rows; k++){
-            for(int j = 0; j < columns; j++ ){
                 *x_guess[k][j] = x_new[k][j];
             }
         }

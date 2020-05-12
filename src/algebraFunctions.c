@@ -339,11 +339,6 @@ void divideArrayByScalar(int length, double *a, double scalar, double *result){
         result[i] = a[i]/scalar;
 }
 
-void addArrays(int length, double *a, double *b, double *result){
-    for(int i=0; i < length; i++)
-        result[i] = a[i]+b[i];
-}
-
 void addScalarToArray(int length, double *a, double scalar, double *result){
     for(int i=0; i < length; i++)
         result[i] = a[i] + scalar;
@@ -374,8 +369,4 @@ void generateIntegerArray(int from, int length, double *a){
 void generateOnesArray(int length, double *a){
     for(int i = 0; i < length; i++)
         a[i] = 1;
-}
-
-void multiplyArrayByMatrix(int length, int rows, int columns, double *a, double **matrix, double *result){
-
 }

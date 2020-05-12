@@ -68,9 +68,10 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
 
     double dotr0v0[columns];
     double dr0v0Smu[columns];
+    double Smut[columns];
+
     dotProductMatrix(rows, columns, r0, v0, dotr0v0);
     divideArrayByScalar(columns, dotr0v0, sqrt(mu), dr0v0Smu);
-    double Smut[columns];
     multiplyArrayByScalar(columns, timeVector, sqrt(mu), Smut);
 
     double x02[columns]; 
