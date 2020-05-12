@@ -74,8 +74,8 @@ void picardChebyshevDemo(){
    for(int i = 0; i < n+1; i++){
        x_guess[i] = (double *) calloc(6, sizeof(double *));
        for(int j = 0; j < 6; j++){
-           x_guess[i][j] = (j < 3) ? rFinMatr[i][j] + rand()*rMag*noisePrct*2 - rMag*noisePrct :
-                           rFinMatr[i][j-3] + rand()*rMag*noisePrct*2 - rMag*noisePrct;;
+           x_guess[i][j] = (j < 3) ? rFinMatrTransposed[i][j] + rand()*rMag*noisePrct*2 - rMag*noisePrct :
+                           rFinMatrTransposed[i][j-3] + rand()*rMag*noisePrct*2 - rMag*noisePrct;
        }
    }
    

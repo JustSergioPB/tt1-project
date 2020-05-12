@@ -65,7 +65,6 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
         calculateHyperbolicOrbits(rows, columns, idx, r0, v0, alpha, timeVector, r0Mag, mu, x0);
     }
 
-
     double dotr0v0[columns];
     double dr0v0Smu[columns];
     double Smut[columns];

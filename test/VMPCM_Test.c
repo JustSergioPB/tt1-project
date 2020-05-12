@@ -20,10 +20,11 @@ int VMPCM_Test(){
 
     vmpcm(3,6, tau, &x_guess, omega1, omega2, errTol, mu);
 
+    double factor = 1e9;
     double expected[3][6] = {
-        {1e9*-0.0499, 1e9*-2.4295, 1e9*-3.1924, 0, 1e9*-0.0012, 1e9*-0.0015 },
-        {1e9*-0.0499, 1e9*-2.4301, 1e9*-3.1932, 0, 1e9*-0.0012, 1e9*-0.0015},
-        {1e9*-0.0498, 1e9*-2.4283, 1e9*-3.1909, 0, 1e9*-0.0012, 1e9*-0.0015}
+        {-0.0499 * factor, -2.4295 * factor, -3.1924 * factor, 0, -0.0012 * factor, -0.0015 * factor},
+        {-0.0499 * factor, -2.4301 * factor, -3.1932 * factor, 0, -0.0012 * factor, -0.0015 * factor},
+        {-0.0498 * factor, -2.4283 * factor, -3.1909 * factor, 0, -0.0012 * factor, -0.0015 * factor}
     };
 
     for(int i = 0; i < 3; i++){
