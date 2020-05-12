@@ -29,12 +29,13 @@ int main() {
     multiplyMatrixByScalar_Test();
     getRow_Test();
     multiplyMatrixs_Test();
+    
     //keplerUniversal testing functions
     //c2c3_Test();
-    keplerUniversal_Test();
+    //keplerUniversal_Test();
 
     //VMPCM testing functions
-    //VMPCM_Test();
+    VMPCM_Test();
     //chebyshevPolynomial_Test();
 
     //picardChebyshev testing functions
