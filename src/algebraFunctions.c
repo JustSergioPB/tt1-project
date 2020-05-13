@@ -1,6 +1,31 @@
 #include "algebraFunctions.h"
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
+
+void printMatriz(double **mat, int filas, int colum)
+{
+    int i, j;
+
+    for(i = 0; i < filas; i++){
+        for(j = 0; j < colum; j++){
+            printf("%5.15lf ", mat[i][j]);
+        }
+        printf("\n");
+    }
+
+    printf("\n");
+}
+
+void printArray(double *a, int length){
+    for(int i = 0; i < length; i++){
+        printf("%5.15lf ", a[i]);
+        printf("\n");
+    }
+
+    printf("\n");
+}
+
 
 void freeMatrix(int rows, double **matrix)
 {
@@ -190,7 +215,7 @@ void dividesArrayMatrix(int rows, int columns, double *a, double **matrix, doubl
     for(int i = 0; i < rows; i++){
         m[i] = (double *) calloc(columns, sizeof(double));
         for(int j = 0; j < columns; j++){
-            m[i][j] = matrix[i][j]/a[j];
+            m[i][j] = matrix[i][j]*(1/a[i]);
         }
     }
 

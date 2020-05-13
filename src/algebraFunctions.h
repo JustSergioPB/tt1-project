@@ -1,5 +1,7 @@
 #ifndef ALGEBRAFUNCTIONS_H_ 
 #define ALGEBRAFUNCTIONS_H_
+void printMatriz(double **mat, int filas, int colum);
+void printArray(double *a, int length);
 
 void freeMatrix(int rows, double **matrix);
 void getColumn(int rows, int columnNumber, double **matrix, double *column);

@@ -34,6 +34,8 @@ int twoBodyForceModel_Test(){
             {0, 0, 0, 0,0,-3.986 * constant}
     };
 
+    printMatriz(result, 3,6);
+
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 6; j++){
             assert(result[i][j] == expected[i][j]);
