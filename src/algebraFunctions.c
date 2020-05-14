@@ -375,8 +375,11 @@ void transpose(int rows, int columns, double **source, double ***transposed){
     m = (double **) calloc(columns, sizeof(double *));
 
     for(int i=0; i < columns; i++){
-        m[i] = (double *) calloc(columns, sizeof(double));
-        for(int j=0; j < rows; j++){
+        m[i] = (double *) calloc(rows, sizeof(double));
+    }
+
+    for(int i =0; i < rows; i++){
+        for(int j =0; j < columns; j++){
             m[j][i] = source[i][j];
         }
     }

@@ -73,16 +73,11 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
     double t[rows];
     double beta_rColumn[N];
 
-    printArray(aux, N);
-    printMatriz(TVaux, N, rows);
-    printMatriz(TV, N, rows);
-    printMatriz(Cx, rows, rows);
-    printArray(s,N);
-
     int a[rows];
     int b[rows];
     double err1[rows];
     double err2[rows];
+    double **x_guessAux;
     for(int i =0; i < rows; i++){
         err1[i] = INFINITY;
         err2[i] = INFINITY;
@@ -91,7 +86,7 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
     elemGreaterThanValue(rows, errorTolerance, err1, a);
     elemGreaterThanValue(rows, errorTolerance, err2, b);
     for(int i = 0; i < 300 && (any(rows, a) == 1 || any(rows, b) == 1); i++){
-        double **x_guessAux = *x_guess;
+        x_guessAux = *x_guess;
 
         multiplyArrayByScalar(rows, tau, omega2, tauTimesOmega2);
         addScalarToArray(rows, tauTimesOmega2, omega1, t);

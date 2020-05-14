@@ -4,6 +4,7 @@
 #include "VMPCM.h"
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 #ifndef MPI
 #define M_PI 3.14159265358979323846
 #endif
@@ -18,6 +19,7 @@ void picardChebyshevDemo(){
    for(int i = 0; i < 3; i++){
        rMag += pow(r0[i], 2);
    }
+   rMag = sqrt(rMag);
    double param = sqrt(mu / rMag);
    double v0[3] = {0, param, 0};
 
@@ -25,7 +27,7 @@ void picardChebyshevDemo(){
    for(int i = 0; i < 3; i++){
        vMag += pow(v0[i], 2);
    }
-
+   vMag = sqrt(vMag);
    double p = 2*M_PI*sqrt(pow(rMag, 3) / mu);
    double tSpan[2] = {0, p*2};
 
@@ -33,19 +35,19 @@ void picardChebyshevDemo(){
    
    double tau[n+1];
    for(int i = 50, j = 0; i >= 0; i--){
-      tau[j] = cos(j*M_PI/n);
+      tau[j] = cos(i*M_PI/n);
       j++;  
    }
 
    double omega1 = (tSpan[1]+tSpan[0])/2;
    double omega2 = (tSpan[1]-tSpan[0])/2;
-   double tauTimesOmega2[n+1];
    double t[n+1];
    double **r0Matr = (double **) calloc(3, sizeof(double *));
    double **v0Matr = (double **) calloc(3, sizeof(double *));
 
-   multiplyArrayByScalar(n+1, tau, omega2, tauTimesOmega2);
-   addScalarToArray(n+1, tauTimesOmega2, omega1, t);
+   for(int i = 0; i < n+1; i++){
+       t[i] = omega2*tau[i] + omega1;
+   }
 
    for(int i = 0; i < 3; i++){
        r0Matr[i] = (double *) calloc(n+1, sizeof(double ));
@@ -59,28 +61,40 @@ void picardChebyshevDemo(){
    double **rFinMatr;
    double **vFinMatr;
 
+   printf("--- r0 ---\n");
+   printArray(r0,3);
+   printf("--- v0 ---\n");
+   printArray(v0,3);
+   printf("--- t ---\n");
+   printArray(t,n+1);
+   printf("--- P ---\n");
+   printf("%5.15lf", p);
+   printf("--- omega1 ---\n");
+   printf("%5.15lf ", omega1);
+   printf("--- omega2 ---\n");
+   printf("%5.15lf ", omega2);
+
    keplerUniversal(3, n+1, r0Matr, v0Matr, t, mu, &rFinMatr, &vFinMatr);
 
    double errorTolerance = 1e-6;
    double noisePrct = 0.25;
-   double **rFinMatrTransposed;
-   double **vFinMatrTransposed;
 
-   transpose(3, n+1, rFinMatr, &rFinMatrTransposed);
-   transpose(3, n+1, vFinMatr, &vFinMatrTransposed);
 
    double **x_guess = (double **) calloc(n+1, sizeof(double *));
 
    for(int i = 0; i < n+1; i++){
        x_guess[i] = (double *) calloc(6, sizeof(double *));
        for(int j = 0; j < 6; j++){
-           x_guess[i][j] = (j < 3) ? rFinMatrTransposed[i][j] + rand()*rMag*noisePrct*2 - rMag*noisePrct :
-                           rFinMatrTransposed[i][j-3] + rand()*rMag*noisePrct*2 - rMag*noisePrct;
+           x_guess[i][j] = (j < 3) ? rFinMatr[j][i] + (rand()/RAND_MAX)*rMag*noisePrct*2 - rMag*noisePrct :
+                           vFinMatr[j-3][i] + (rand()/RAND_MAX)*vMag*noisePrct*2 - vMag*noisePrct;
        }
    }
-   
-   // vmpcm(n+1, 3, tau, &x_guess, omega1, omega2, errorTolerance);
 
+   printMatriz(x_guess, n+1, 6);
+   printf("-----------------------------\n");
+   vmpcm(n+1, 6, tau, &x_guess, omega1, omega2, errorTolerance, mu);
+
+   printMatriz(x_guess, n+1, 6);
    double APosMag[n+1];
    double AVelMag[n+1];
    double PCMPosMag[n+1];
@@ -92,8 +106,8 @@ void picardChebyshevDemo(){
         APosMag[i] = 0.0;
         AVelMag[i] = 0.0;
         for(int j = 3; j < 3; j++ ){
-            APosMag[i] += pow(rFinMatrTransposed[i][j], 2);
-            AVelMag[i] += pow(vFinMatrTransposed[i][j], 2);
+            APosMag[i] += pow(rFinMatr[j][i], 2);
+            AVelMag[i] += pow(vFinMatr[j][i], 2);
         }
         APosMag[i] = sqrt(APosMag[i]);
         AVelMag[i] = sqrt(AVelMag[i]);
@@ -102,15 +116,17 @@ void picardChebyshevDemo(){
    for(int i = 0; i < n+1; i++){
       PCMPosMag[i] = 0.0;
       for(int j = 0; j < 3; j++ ){
-         PCMPosMag[i] += sqrt(pow(x_guess[i][j], 2));
+         PCMPosMag[i] += pow(x_guess[i][j], 2);
       }
+      PCMPosMag[i] = sqrt(PCMPosMag[i]);
    }
 
    for(int i = 0; i < n+1; i++){
       PCMVelMag[i] = 0.0;
       for(int j = 3; j < 6; j++ ){
-         PCMVelMag[i] += sqrt(pow(x_guess[i][j], 2));
+         PCMVelMag[i] += pow(x_guess[i][j], 2);
       }
+       PCMVelMag[i] = sqrt(PCMVelMag[i]);
    }
 
    for(int i= 0; i < n+1; i++){
@@ -118,12 +134,23 @@ void picardChebyshevDemo(){
       VelErr[i] = fabs(PCMVelMag[i] - AVelMag[i]);
    }
 
+    printf("--- PCMPosMag ---\n");
+    printArray(PCMPosMag, n+1);
+    printf("--- APosMag ---\n");
+    printArray(APosMag, n+1);
+    printf("--- PCMVelMag ---\n");
+    printArray(PCMVelMag, n+1);
+    printf("--- AVelMag ---\n");
+    printArray(AVelMag, n+1);
+    printf("--- PosErr ---\n");
+    printArray(PosErr, n+1);
+    printf("--- VelErr ---\n");
+    printArray(VelErr, n+1);
+
    //plotPositionAndVelocity(rvPCM, rFinMatr, vFinMatr, vMag, rMag, t, x_guess);
    //plotMagnitudeErrors(t, PosErr, VelErr);
 
    freeMatrix(n+1, x_guess);
-   freeMatrix(n+1, rFinMatrTransposed);
-   freeMatrix(n+1, vFinMatrTransposed);
    freeMatrix(3, rFinMatr);
    freeMatrix(3, vFinMatr);
    freeMatrix(3, r0Matr);
