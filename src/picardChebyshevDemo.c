@@ -61,20 +61,12 @@ void picardChebyshevDemo(){
    double **rFinMatr;
    double **vFinMatr;
 
-   printf("--- r0 ---\n");
-   printArray(r0,3);
-   printf("--- v0 ---\n");
-   printArray(v0,3);
-   printf("--- t ---\n");
-   printArray(t,n+1);
-   printf("--- P ---\n");
-   printf("%5.15lf", p);
-   printf("--- omega1 ---\n");
-   printf("%5.15lf ", omega1);
-   printf("--- omega2 ---\n");
-   printf("%5.15lf ", omega2);
-
    keplerUniversal(3, n+1, r0Matr, v0Matr, t, mu, &rFinMatr, &vFinMatr);
+
+   printf("----- rFin ------\n");
+   printMatriz(rFinMatr,3,n+1);
+   printf("----- vFin ------\n");
+   printMatriz(vFinMatr,3,n+1);
 
    double errorTolerance = 1e-6;
    double noisePrct = 0.25;
@@ -82,12 +74,20 @@ void picardChebyshevDemo(){
 
    double **x_guess = (double **) calloc(n+1, sizeof(double *));
 
-   for(int i = 0; i < n+1; i++){
+   for(int i = 0; i < n+1; i++)
        x_guess[i] = (double *) calloc(6, sizeof(double *));
-       for(int j = 0; j < 6; j++){
-           x_guess[i][j] = (j < 3) ? rFinMatr[j][i] + (rand()/RAND_MAX)*rMag*noisePrct*2 - rMag*noisePrct :
-                           vFinMatr[j-3][i] + (rand()/RAND_MAX)*vMag*noisePrct*2 - vMag*noisePrct;
+
+   for(int i = 0; i < 3; i++){
+       for(int j = 0; j < n+1; j++){
+           x_guess[j][i] = rFinMatr[i][j] + (rand()/RAND_MAX)*rMag*noisePrct*2 - rMag*noisePrct;
        }
+   }
+
+   for(int i = 0, k = 3; i < 3; i++){
+       for(int j = 0; j < n+1; j++){
+           x_guess[j][k] = vFinMatr[i][j] + (rand()/RAND_MAX)*vMag*noisePrct*2 - vMag*noisePrct;
+       }
+       k++;
    }
 
    printMatriz(x_guess, n+1, 6);
@@ -102,16 +102,18 @@ void picardChebyshevDemo(){
    double PosErr[n+1];
    double VelErr[n+1];
 
-    for(int i = 0; i < n+1; i++){
-        APosMag[i] = 0.0;
-        AVelMag[i] = 0.0;
-        for(int j = 3; j < 3; j++ ){
-            APosMag[i] += pow(rFinMatr[j][i], 2);
-            AVelMag[i] += pow(vFinMatr[j][i], 2);
-        }
-        APosMag[i] = sqrt(APosMag[i]);
-        AVelMag[i] = sqrt(AVelMag[i]);
-    }
+   for(int i = 0; i < n+1; i++){
+       APosMag[i] = 0.0;
+       AVelMag[i] = 0.0;
+
+       for(int j = 0; j < 3; j++){
+
+           APosMag[i] += pow(rFinMatr[j][i], 2);
+           AVelMag[i] += pow(vFinMatr[j][i], 2);
+       }
+       APosMag[i] = sqrt(APosMag[i]);
+       AVelMag[i] = sqrt(AVelMag[i]);
+   }
 
    for(int i = 0; i < n+1; i++){
       PCMPosMag[i] = 0.0;
@@ -126,7 +128,7 @@ void picardChebyshevDemo(){
       for(int j = 3; j < 6; j++ ){
          PCMVelMag[i] += pow(x_guess[i][j], 2);
       }
-       PCMVelMag[i] = sqrt(PCMVelMag[i]);
+      PCMVelMag[i] = sqrt(PCMVelMag[i]);
    }
 
    for(int i= 0; i < n+1; i++){
