@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include "picardChebyshevDemo.h"
-#include "test/kepler_Test.h"
-#include "test/algebraFun_Test.h"
-#include "test/VMPCM_Test.h"
-#include "test/picard_Test.h"
+#include "VMCPMModule/picardChebyshevDemo.h"
+#include "kepler_Test.h"
+#include "algebraFun_Test.h"
+#include "VMPCM_Test.h"
+#include "picard_Test.h"
 
 int main() {
     //algebraFunctions testing functions
@@ -24,25 +24,23 @@ int main() {
     generateOnesArray_Test();
     timesArrayMatrix_Test();
     substractMatrixs_Test();
-    //dividesArrayMatrix_Test();
+    dividesArrayMatrix_Test();
     getRows_Test();
     multiplyMatrixByScalar_Test();
     getRow_Test();
     multiplyMatrixs_Test();
-
-    picardChebyshevDemo();
 
     //keplerUniversal testing functions
     c2c3_Test();
     keplerUniversal_Test();
 
     //VMPCM testing functions
-    //VMPCM_Test();
-    //chebyshevPolynomial_Test();
+    VMPCM_Test();
+    chebyshevPolynomial_Test();
 
     //picardChebyshev testing functions
-    //picardChebyshevDemo_Test();
-    //twoBodyForceModel_Test();
+    picardChebyshevDemo_Test();
+    twoBodyForceModel_Test();
 
    return 0;
 }

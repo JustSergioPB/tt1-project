@@ -1,6 +1,6 @@
 #include "picard_Test.h"
-#include "picardChebyshevDemo.h"
-#include "algebraFunctions.h"
+#include "VMCPMModule/picardChebyshevDemo.h"
+#include "VMCPMModule/algebraFunctions.h"
 #include <stdlib.h>
 #include <assert.h>
 
@@ -25,7 +25,7 @@ int twoBodyForceModel_Test(){
 
     double **result;
 
-    twoBodyForceModel(3,6,t,x_guess, mu, &result);
+    twoBodyForceModel(3,6,x_guess, mu, &result);
 
     double constant = 1e5;
     double expected[3][6] = {

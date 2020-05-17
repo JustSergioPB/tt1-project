@@ -29,7 +29,6 @@ int sign(double num);
 int any(int length, int *a);
 void crossProductArray(double *a, double *b, double *cross);
 double dotProductArray(int length, double *a, double *b);
-void addScalarToArray(int length, double *a, double scalar, double *result);
 void multiplyArrayByScalar(int length, double *a, double scalar, double *result);
 void divideArrayByScalar(int length, double *a, double scalar, double *result);
 

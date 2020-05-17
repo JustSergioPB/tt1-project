@@ -1,6 +1,6 @@
 #include "VMPCM_Test.h"
-#include "VMPCM.h"
-#include "algebraFunctions.h"
+#include "VMCPMModule/VMPCM.h"
+#include "VMCPMModule/algebraFunctions.h"
 #include <assert.h>
 #include <stdlib.h>
 

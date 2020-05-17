@@ -7,14 +7,14 @@ include_directories(src)
 include_directories(test)
 
 add_executable(C_project
-        main.c
-        src/algebraFunctions.c
-        src/algebraFunctions.h
-        src/keplerUniversal.c
-        src/keplerUniversal.h
-        src/picardChebyshevDemo.c
-        src/picardChebyshevDemo.h
-        src/VMPCM.c
-        src/VMPCM.h
+        test/main.c
+        src/VMCPMModule/algebraFunctions.c
+        src/VMCPMModule/algebraFunctions.h
+        src/VMCPMModule/keplerUniversal.c
+        src/VMCPMModule/keplerUniversal.h
+        src/VMCPMModule/picardChebyshevDemo.c
+        src/VMCPMModule/picardChebyshevDemo.h
+        src/VMCPMModule/VMPCM.c
+        src/VMCPMModule/VMPCM.h
         test/kepler_Test.c
         test/kepler_Test.h test/algebraFun_Test.h test/algebraFun_Test.c test/VMPCM_Test.c test/VMPCM_Test.h test/picard_Test.c test/picard_Test.h)

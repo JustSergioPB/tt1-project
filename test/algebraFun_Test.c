@@ -1,5 +1,5 @@
 #include "algebraFun_Test.h"
-#include "algebraFunctions.h"
+#include "VMCPMModule/algebraFunctions.h"
 #include <assert.h>
 #include <stdlib.h>
 

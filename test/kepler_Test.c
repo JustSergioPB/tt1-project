@@ -1,9 +1,9 @@
-#include "keplerUniversal.h"
+#include "VMCPMModule/keplerUniversal.h"
 #include <assert.h>
 #include "kepler_Test.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "algebraFunctions.h"
+#include "VMCPMModule/algebraFunctions.h"
 
 
 int keplerUniversal_Test(){
