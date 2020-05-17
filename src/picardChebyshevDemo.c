@@ -90,6 +90,15 @@ void picardChebyshevDemo(){
        k++;
    }
 
+   for(int j = 0; j < 3; j++){
+       x_guess[0][j] = rFinMatr[j][0];
+   }
+
+    for(int j = 0, k = 3; j < 3; j++){
+        x_guess[0][k] = vFinMatr[j][0];
+        k++;
+    }
+
    printMatriz(x_guess, n+1, 6);
    printf("-----------------------------\n");
    vmpcm(n+1, 6, tau, &x_guess, omega1, omega2, errorTolerance, mu);
