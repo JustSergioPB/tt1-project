@@ -63,11 +63,6 @@ void picardChebyshevDemo(){
 
    keplerUniversal(3, n+1, r0Matr, v0Matr, t, mu, &rFinMatr, &vFinMatr);
 
-   printf("----- rFin ------\n");
-   printMatriz(rFinMatr,3,n+1);
-   printf("----- vFin ------\n");
-   printMatriz(vFinMatr,3,n+1);
-
    double errorTolerance = 1e-6;
    double noisePrct = 0.25;
 
@@ -94,16 +89,13 @@ void picardChebyshevDemo(){
        x_guess[0][j] = rFinMatr[j][0];
    }
 
-    for(int j = 0, k = 3; j < 3; j++){
-        x_guess[0][k] = vFinMatr[j][0];
-        k++;
-    }
+   for(int j = 0, k = 3; j < 3; j++){
+       x_guess[0][k] = vFinMatr[j][0];
+       k++;
+   }
 
-   printMatriz(x_guess, n+1, 6);
-   printf("-----------------------------\n");
    vmpcm(n+1, 6, tau, &x_guess, omega1, omega2, errorTolerance, mu);
 
-   printMatriz(x_guess, n+1, 6);
    double APosMag[n+1];
    double AVelMag[n+1];
    double PCMPosMag[n+1];
@@ -145,22 +137,6 @@ void picardChebyshevDemo(){
       VelErr[i] = fabs(PCMVelMag[i] - AVelMag[i]);
    }
 
-    printf("--- PCMPosMag ---\n");
-    printArray(PCMPosMag, n+1);
-    printf("--- APosMag ---\n");
-    printArray(APosMag, n+1);
-    printf("--- PCMVelMag ---\n");
-    printArray(PCMVelMag, n+1);
-    printf("--- AVelMag ---\n");
-    printArray(AVelMag, n+1);
-    printf("--- PosErr ---\n");
-    printArray(PosErr, n+1);
-    printf("--- VelErr ---\n");
-    printArray(VelErr, n+1);
-
-   //plotPositionAndVelocity(rvPCM, rFinMatr, vFinMatr, vMag, rMag, t, x_guess);
-   //plotMagnitudeErrors(t, PosErr, VelErr);
-
    freeMatrix(n+1, x_guess);
    freeMatrix(3, rFinMatr);
    freeMatrix(3, vFinMatr);
@@ -168,8 +144,16 @@ void picardChebyshevDemo(){
    freeMatrix(3, v0Matr);
 }
 
-
-void twoBodyForceModel(int rows, int columns, double *t, double **posvel, double mu, double ***f){
+/**
+ *
+ * @param (in) rows
+ * @param (in) columns
+ * @param (in) t
+ * @param (in) posvel
+ * @param (in) mu
+ * @param (in/out) f
+ */
+void twoBodyForceModel(int rows, int columns, double **posvel, double mu, double ***f){
    
    double **eta = (double **) calloc(rows, sizeof(double *));
    double rMag[rows];
@@ -195,18 +179,4 @@ void twoBodyForceModel(int rows, int columns, double *t, double **posvel, double
    }
 
    *f = eta;
-}
-
-/**
-* Print function
-*/
-void plotPositionAndVelocity(double **rvPCM, double **rA, double **vA, double vMag, double a, double *t, double **xg){
-
-}
-
-/**
-* Print function
-*/
-void plotMagnitudeErrors(double *t, double *PosErr, double *VelErr){
-
 }

@@ -2,7 +2,6 @@
 #include "picardChebyshevDemo.h"
 #include "algebraFunctions.h"
 #include <stdlib.h>
-#include <stdio.h>
 #include <math.h>
 #include <complex.h>
 
@@ -69,8 +68,6 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
     double **beta_r;
     double **beta_k = (double **) calloc(N+1, sizeof(double *));
     double **x_new;
-    double tauTimesOmega2[rows];
-    double t[rows];
     double beta_rColumn[N];
 
     int a[rows];
@@ -88,9 +85,7 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
     for(int i = 0; i < 300 && (any(rows, a) == 1 || any(rows, b) == 1); i++){
         x_guessAux = *x_guess;
 
-        multiplyArrayByScalar(rows, tau, omega2, tauTimesOmega2);
-        addScalarToArray(rows, tauTimesOmega2, omega1, t);
-        twoBodyForceModel(rows, columns, t, *x_guess, varargin, &F);
+        twoBodyForceModel(rows, columns, *x_guess, varargin, &F);
         multiplyMatrixByScalar(rows, columns, omega2, F, &F);
         multiplyMatrixs(N, rows, columns, TV, F, &beta_r);
 
@@ -148,7 +143,7 @@ void vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1,
 * @param sizeTau (in) tau's size
 * @param k (in) array 
 * @param tau (in) array
-* @param tK (out) matrix 
+* @param tK (in/out) matrix
 */
 void chebyshevPolynomial(int sizeK, int sizeTau, double *k, double *tau, double ***tK)
 {

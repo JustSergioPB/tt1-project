@@ -1,8 +1,6 @@
 #include "keplerUniversal.h"
 #include "algebraFunctions.h"
-#include <stdlib.h>
 #include <math.h>
-#include <stdio.h>
 
 /**
 * Most efficient way to propagate any type of two body orbit using kepler's equations.
@@ -147,6 +145,15 @@ void keplerUniversal(int rows, int columns, double **r0, double **v0, double *ti
     *vA = vFinal;
 }
 
+/**
+ *
+ * @param columns (in)
+ * @param idx (in)
+ * @param mu (in)
+ * @param timeVector (in)
+ * @param alpha (in)
+ * @param x0 (in/out)
+ */
 void calculateElipticCircularOrbits(int columns, int *idx, double mu, double *timeVector, double *alpha, double *x0){
     for(int i = 0; i < columns; i++){
         if(idx[i] == 1){
@@ -155,6 +162,17 @@ void calculateElipticCircularOrbits(int columns, int *idx, double mu, double *ti
     }
 }
 
+/**
+ *
+ * @param rows (in)
+ * @param columns (in)
+ * @param idx (in)
+ * @param r0 (in)
+ * @param v0 (in)
+ * @param timeVector (in)
+ * @param mu (in)
+ * @param x0 (in/out)
+ */
 void calculateParabolicOrbits(int rows, int columns, int *idx, double **r0, double **v0, double *timeVector, double mu, double *x0){
     int col = truesInArray(columns, idx);
     double **h;
@@ -187,6 +205,19 @@ void calculateParabolicOrbits(int rows, int columns, int *idx, double **r0, doub
     freeMatrix(rows, v0idx);
 }
 
+/**
+ *
+ * @param rows (in)
+ * @param columns (in)
+ * @param idx (in)
+ * @param r0 (in)
+ * @param v0 (in)
+ * @param alpha (in)
+ * @param timeVector (in)
+ * @param r0Mag (in)
+ * @param mu (in)
+ * @param x0 (in/out)
+ */
 void calculateHyperbolicOrbits(int rows, int columns, int *idx, double **r0, double **v0, double *alpha, double *timeVector, double *r0Mag, double mu, double *x0){
     int col = truesInArray(columns, idx);
     double **r0idx;
@@ -209,6 +240,12 @@ void calculateHyperbolicOrbits(int rows, int columns, int *idx, double **r0, dou
     freeMatrix(rows, v0idx);
 }
 
+/**
+ *
+ * @param (in) psi
+ * @param (out) c2
+ * @param (out) c3
+ */
 void c2c3(double psi, double *c2, double *c3)
 {
 
