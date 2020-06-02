@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['elemgreaterthanvalue_13',['elemGreaterThanValue',['../LinearAlgebraFunctions_8c.html#ad88ea44fe826265461064171560eca9d',1,'elemGreaterThanValue(int size, double a[], double value):&#160;LinearAlgebraFunctions.c'],['../LinearAlgebraFunctions_8h.html#ad88ea44fe826265461064171560eca9d',1,'elemGreaterThanValue(int size, double a[], double value):&#160;LinearAlgebraFunctions.c']]],
-  ['elemlowerthanvalue_14',['elemLowerThanValue',['../LinearAlgebraFunctions_8c.html#a20aefde10e3a9387799c5006f36b393b',1,'elemLowerThanValue(int size, double a[], double value):&#160;LinearAlgebraFunctions.c'],['../LinearAlgebraFunctions_8h.html#a20aefde10e3a9387799c5006f36b393b',1,'elemLowerThanValue(int size, double a[], double value):&#160;LinearAlgebraFunctions.c']]]
+  ['elemgreaterthanvalue_16',['elemGreaterThanValue',['../algebraFunctions_8c.html#ae10cfb7a9153beaafb753b2864110e77',1,'elemGreaterThanValue(int length, double value, double *a, int *result):&#160;algebraFunctions.c'],['../algebraFunctions_8h.html#ae10cfb7a9153beaafb753b2864110e77',1,'elemGreaterThanValue(int length, double value, double *a, int *result):&#160;algebraFunctions.c']]],
+  ['elemlowerthanvalue_17',['elemLowerThanValue',['../algebraFunctions_8c.html#a9ef31455fae1df493ecfb692acab6f1d',1,'elemLowerThanValue(int length, double value, double *a, int *result):&#160;algebraFunctions.c'],['../algebraFunctions_8h.html#a9ef31455fae1df493ecfb692acab6f1d',1,'elemLowerThanValue(int length, double value, double *a, int *result):&#160;algebraFunctions.c']]]
 ];

@@ -1,59 +1,66 @@
-\hypertarget{VMPCM_8c}{}\doxysection{/mnt/c/\+Users/oigre/\+Desktop/\+T\+T1\+\_\+2019\+\_\+20/\+C\+\_\+project/src/\+V\+M\+P\+CM.c File Reference}
-\label{VMPCM_8c}\index{/mnt/c/Users/oigre/Desktop/TT1\_2019\_20/C\_project/src/VMPCM.c@{/mnt/c/Users/oigre/Desktop/TT1\_2019\_20/C\_project/src/VMPCM.c}}
+\hypertarget{VMPCM_8c}{}\doxysection{/home/sergio/\+Desktop/tt1-\/project/src/\+V\+M\+C\+P\+M\+Module/\+V\+M\+P\+CM.c File Reference}
+\label{VMPCM_8c}\index{/home/sergio/Desktop/tt1-\/project/src/VMCPMModule/VMPCM.c@{/home/sergio/Desktop/tt1-\/project/src/VMCPMModule/VMPCM.c}}
 {\ttfamily \#include \char`\"{}V\+M\+P\+C\+M.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}Picard\+Chebyshev\+Demo.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}Linear\+Algebra\+Functions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}picard\+Chebyshev\+Demo.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}algebra\+Functions.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
-{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$complex.\+h$>$}\newline
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-double $\ast$$\ast$ \mbox{\hyperlink{VMPCM_8c_a0ba95a9e575e7cb8e0f45e05739d36d1}{vmpcm}} (int n, int m, double tau\mbox{[}n\mbox{]}, double x\+\_\+guess\mbox{[}n\mbox{]}\mbox{[}m\mbox{]}, double omega1, double omega2, double err\+Tol)
+void \mbox{\hyperlink{VMPCM_8c_ab3c12f4c83d0c17bf889318bc3234353}{vmpcm}} (int rows, int columns, double $\ast$tau, double $\ast$$\ast$$\ast$x\+\_\+guess, double omega1, double omega2, double error\+Tolerance, double varargin)
 \item 
-double $\ast$ \mbox{\hyperlink{VMPCM_8c_a57ac7c493bb8c492615d291fc7b2e640}{chebyshev\+Polynomial}} (int size, double k\mbox{[}$\,$\mbox{]}, double tau\mbox{[}$\,$\mbox{]})
+void \mbox{\hyperlink{VMPCM_8c_a010c3a73ddb9d49973a4be8d89825f1f}{chebyshev\+Polynomial}} (int sizeK, int size\+Tau, double $\ast$k, double $\ast$tau, double $\ast$$\ast$$\ast$tK)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{VMPCM_8c_a57ac7c493bb8c492615d291fc7b2e640}\label{VMPCM_8c_a57ac7c493bb8c492615d291fc7b2e640}} 
+\mbox{\Hypertarget{VMPCM_8c_a010c3a73ddb9d49973a4be8d89825f1f}\label{VMPCM_8c_a010c3a73ddb9d49973a4be8d89825f1f}} 
 \index{VMPCM.c@{VMPCM.c}!chebyshevPolynomial@{chebyshevPolynomial}}
 \index{chebyshevPolynomial@{chebyshevPolynomial}!VMPCM.c@{VMPCM.c}}
 \doxysubsubsection{\texorpdfstring{chebyshevPolynomial()}{chebyshevPolynomial()}}
-{\footnotesize\ttfamily double$\ast$ chebyshev\+Polynomial (\begin{DoxyParamCaption}\item[{int}]{size,  }\item[{double}]{k\mbox{[}$\,$\mbox{]},  }\item[{double}]{tau\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void chebyshev\+Polynomial (\begin{DoxyParamCaption}\item[{int}]{sizeK,  }\item[{int}]{size\+Tau,  }\item[{double $\ast$}]{k,  }\item[{double $\ast$}]{tau,  }\item[{double $\ast$$\ast$$\ast$}]{tK }\end{DoxyParamCaption})}
 
 Calculates Chebyshev polynomial corresponding to degree K from tau
 
 
 \begin{DoxyParams}{Parameters}
-{\em size} & k\textquotesingle{}s and tau\textquotesingle{}s size \\
+{\em sizeK} & (in) k\textquotesingle{}s size \\
 \hline
-{\em k} & \\
+{\em size\+Tau} & (in) tau\textquotesingle{}s size \\
 \hline
-{\em tau} & \\
+{\em k} & (in) array \\
+\hline
+{\em tau} & (in) array \\
+\hline
+{\em tK} & (in/out) matrix \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{VMPCM_8c_a0ba95a9e575e7cb8e0f45e05739d36d1}\label{VMPCM_8c_a0ba95a9e575e7cb8e0f45e05739d36d1}} 
+\mbox{\Hypertarget{VMPCM_8c_ab3c12f4c83d0c17bf889318bc3234353}\label{VMPCM_8c_ab3c12f4c83d0c17bf889318bc3234353}} 
 \index{VMPCM.c@{VMPCM.c}!vmpcm@{vmpcm}}
 \index{vmpcm@{vmpcm}!VMPCM.c@{VMPCM.c}}
 \doxysubsubsection{\texorpdfstring{vmpcm()}{vmpcm()}}
-{\footnotesize\ttfamily double$\ast$$\ast$ vmpcm (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{int}]{m,  }\item[{double}]{tau\mbox{[}n\mbox{]},  }\item[{double}]{x\+\_\+guess\mbox{[}n\mbox{]}\mbox{[}m\mbox{]},  }\item[{double}]{omega1,  }\item[{double}]{omega2,  }\item[{double}]{err\+Tol }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void vmpcm (\begin{DoxyParamCaption}\item[{int}]{rows,  }\item[{int}]{columns,  }\item[{double $\ast$}]{tau,  }\item[{double $\ast$$\ast$$\ast$}]{x\+\_\+guess,  }\item[{double}]{omega1,  }\item[{double}]{omega2,  }\item[{double}]{error\+Tolerance,  }\item[{double}]{varargin }\end{DoxyParamCaption})}
 
 Generic Function wrapper for the Vectorized Picard Chebyshev Method
 
 
 \begin{DoxyParams}{Parameters}
-{\em n} & matrixs row number \\
+{\em rows} & (in) matrixs row number \\
 \hline
-{\em m} & matrixs column number \\
+{\em columns} & (in) matrixs column number \\
 \hline
-{\em tau} & \mbox{[}n x 1\mbox{]} matrix, transformed time domain vector \\
+{\em tau} & (in) \mbox{[}rows x 1\mbox{]} matrix, transformed time domain vector \\
 \hline
-{\em x\+\_\+guess} & \mbox{[}n x m\mbox{]} matrix, initial guess of values for the Picar Chebyshev method \\
+{\em x\+\_\+guess} & (in/out) \mbox{[}rows x columns\mbox{]} matrix, initial guess of values for the Picar Chebyshev method \\
 \hline
-{\em omega1} & first omega term \\
+{\em omega1} & (in) first omega term \\
 \hline
-{\em omega2} & second omega term \\
+{\em omega2} & (in) second omega term \\
 \hline
 {\em error\+Tolerance} & \\
+\hline
+{\em varargin} & \\
 \hline
 \end{DoxyParams}

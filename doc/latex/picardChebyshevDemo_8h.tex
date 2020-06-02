@@ -1,15 +1,11 @@
-\hypertarget{picardChebyshevDemo_8h}{}\doxysection{/mnt/c/\+Users/oigre/\+Desktop/\+T\+T1\+\_\+2019\+\_\+20/\+C\+\_\+project/src/picard\+Chebyshev\+Demo.h File Reference}
-\label{picardChebyshevDemo_8h}\index{/mnt/c/Users/oigre/Desktop/TT1\_2019\_20/C\_project/src/picardChebyshevDemo.h@{/mnt/c/Users/oigre/Desktop/TT1\_2019\_20/C\_project/src/picardChebyshevDemo.h}}
+\hypertarget{picardChebyshevDemo_8h}{}\doxysection{/home/sergio/\+Desktop/tt1-\/project/src/\+V\+M\+C\+P\+M\+Module/picard\+Chebyshev\+Demo.h File Reference}
+\label{picardChebyshevDemo_8h}\index{/home/sergio/Desktop/tt1-\/project/src/VMCPMModule/picardChebyshevDemo.h@{/home/sergio/Desktop/tt1-\/project/src/VMCPMModule/picardChebyshevDemo.h}}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{picardChebyshevDemo_8h_a13364f035343834d0041ba02babde31d}{picard\+Chebyshev\+Demo}} ()
 \item 
-double $\ast$ \mbox{\hyperlink{picardChebyshevDemo_8h_a9da25c89e9f35e57e5741d6e5c82a555}{two\+Body\+Force\+Model}} (double t, double posvel\mbox{[}$\,$\mbox{]}, double mu)
-\item 
-void \mbox{\hyperlink{picardChebyshevDemo_8h_ab7ac6191988470018f42580efc5ea4fd}{plot\+Position\+And\+Velocity}} (double rv\+P\+CM, double rA, double vA, double v\+Mag, double a, double t, double xg)
-\item 
-void \mbox{\hyperlink{picardChebyshevDemo_8h_a35270d27eb61ea710239ffa1957e7cc1}{plot\+Magnitude\+Errors}} (double t, double Pos\+Err, double Vel\+Err)
+void \mbox{\hyperlink{picardChebyshevDemo_8h_aec4e6e0444a3e82f0ea784b7345887f1}{two\+Body\+Force\+Model}} (int rows, int columns, double $\ast$$\ast$posvel, double mu, double $\ast$$\ast$$\ast$f)
 \end{DoxyCompactItemize}
 
 
@@ -20,30 +16,24 @@ void \mbox{\hyperlink{picardChebyshevDemo_8h_a35270d27eb61ea710239ffa1957e7cc1}{
 \doxysubsubsection{\texorpdfstring{picardChebyshevDemo()}{picardChebyshevDemo()}}
 {\footnotesize\ttfamily void picard\+Chebyshev\+Demo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Entry point for picar\+Cheby\+Shev\+Demo \mbox{\Hypertarget{picardChebyshevDemo_8h_a35270d27eb61ea710239ffa1957e7cc1}\label{picardChebyshevDemo_8h_a35270d27eb61ea710239ffa1957e7cc1}} 
-\index{picardChebyshevDemo.h@{picardChebyshevDemo.h}!plotMagnitudeErrors@{plotMagnitudeErrors}}
-\index{plotMagnitudeErrors@{plotMagnitudeErrors}!picardChebyshevDemo.h@{picardChebyshevDemo.h}}
-\doxysubsubsection{\texorpdfstring{plotMagnitudeErrors()}{plotMagnitudeErrors()}}
-{\footnotesize\ttfamily void plot\+Magnitude\+Errors (\begin{DoxyParamCaption}\item[{double}]{t,  }\item[{double}]{Pos\+Err,  }\item[{double}]{Vel\+Err }\end{DoxyParamCaption})}
-
-Print function \mbox{\Hypertarget{picardChebyshevDemo_8h_ab7ac6191988470018f42580efc5ea4fd}\label{picardChebyshevDemo_8h_ab7ac6191988470018f42580efc5ea4fd}} 
-\index{picardChebyshevDemo.h@{picardChebyshevDemo.h}!plotPositionAndVelocity@{plotPositionAndVelocity}}
-\index{plotPositionAndVelocity@{plotPositionAndVelocity}!picardChebyshevDemo.h@{picardChebyshevDemo.h}}
-\doxysubsubsection{\texorpdfstring{plotPositionAndVelocity()}{plotPositionAndVelocity()}}
-{\footnotesize\ttfamily void plot\+Position\+And\+Velocity (\begin{DoxyParamCaption}\item[{double}]{rv\+P\+CM,  }\item[{double}]{rA,  }\item[{double}]{vA,  }\item[{double}]{v\+Mag,  }\item[{double}]{a,  }\item[{double}]{t,  }\item[{double}]{xg }\end{DoxyParamCaption})}
-
-Print function \mbox{\Hypertarget{picardChebyshevDemo_8h_a9da25c89e9f35e57e5741d6e5c82a555}\label{picardChebyshevDemo_8h_a9da25c89e9f35e57e5741d6e5c82a555}} 
+Entry point for picar\+Cheby\+Shev\+Demo \mbox{\Hypertarget{picardChebyshevDemo_8h_aec4e6e0444a3e82f0ea784b7345887f1}\label{picardChebyshevDemo_8h_aec4e6e0444a3e82f0ea784b7345887f1}} 
 \index{picardChebyshevDemo.h@{picardChebyshevDemo.h}!twoBodyForceModel@{twoBodyForceModel}}
 \index{twoBodyForceModel@{twoBodyForceModel}!picardChebyshevDemo.h@{picardChebyshevDemo.h}}
 \doxysubsubsection{\texorpdfstring{twoBodyForceModel()}{twoBodyForceModel()}}
-{\footnotesize\ttfamily double$\ast$ two\+Body\+Force\+Model (\begin{DoxyParamCaption}\item[{double}]{t,  }\item[{double}]{posvel\mbox{[}$\,$\mbox{]},  }\item[{double}]{mu }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void two\+Body\+Force\+Model (\begin{DoxyParamCaption}\item[{int}]{rows,  }\item[{int}]{columns,  }\item[{double $\ast$$\ast$}]{posvel,  }\item[{double}]{mu,  }\item[{double $\ast$$\ast$$\ast$}]{f }\end{DoxyParamCaption})}
 
 
 \begin{DoxyParams}{Parameters}
-{\em t} & \\
+{\em (in)} & rows \\
 \hline
-{\em posvel} & \\
+{\em (in)} & columns \\
 \hline
-{\em mu} & \\
+{\em (in)} & t \\
+\hline
+{\em (in)} & posvel \\
+\hline
+{\em (in)} & mu \\
+\hline
+{\em (in/out)} & f \\
 \hline
 \end{DoxyParams}

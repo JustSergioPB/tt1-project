@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['picardchebyshevdemo_2ec_52',['picardChebyshevDemo.c',['../picardChebyshevDemo_8c.html',1,'']]],
-  ['picardchebyshevdemo_2eh_53',['picardChebyshevDemo.h',['../picardChebyshevDemo_8h.html',1,'']]]
+  ['vmpcm_2ec_53',['VMPCM.c',['../VMPCM_8c.html',1,'']]],
+  ['vmpcm_2eh_54',['VMPCM.h',['../VMPCM_8h.html',1,'']]]
 ];

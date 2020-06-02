@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logarray_75',['logArray',['../LinearAlgebraFunctions_8c.html#a0a257a511e274d1a5bc35dd063a9591f',1,'logArray(int size, double a[]):&#160;LinearAlgebraFunctions.c'],['../LinearAlgebraFunctions_8h.html#a0a257a511e274d1a5bc35dd063a9591f',1,'logArray(int size, double a[]):&#160;LinearAlgebraFunctions.c']]]
+  ['kepleruniversal_78',['keplerUniversal',['../keplerUniversal_8c.html#a550a2365ae12143b16834acde23256ff',1,'keplerUniversal(int rows, int columns, double **r0, double **v0, double *timeVector, double mu, double ***rA, double ***vA):&#160;keplerUniversal.c'],['../keplerUniversal_8h.html#a550a2365ae12143b16834acde23256ff',1,'keplerUniversal(int rows, int columns, double **r0, double **v0, double *timeVector, double mu, double ***rA, double ***vA):&#160;keplerUniversal.c']]]
 ];

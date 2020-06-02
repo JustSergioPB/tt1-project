@@ -1,41 +1,124 @@
-\hypertarget{keplerUniversal_8h}{}\doxysection{/mnt/c/\+Users/oigre/\+Desktop/\+T\+T1\+\_\+2019\+\_\+20/\+C\+\_\+project/src/kepler\+Universal.h File Reference}
-\label{keplerUniversal_8h}\index{/mnt/c/Users/oigre/Desktop/TT1\_2019\_20/C\_project/src/keplerUniversal.h@{/mnt/c/Users/oigre/Desktop/TT1\_2019\_20/C\_project/src/keplerUniversal.h}}
+\hypertarget{keplerUniversal_8h}{}\doxysection{/home/sergio/\+Desktop/tt1-\/project/src/\+V\+M\+C\+P\+M\+Module/kepler\+Universal.h File Reference}
+\label{keplerUniversal_8h}\index{/home/sergio/Desktop/tt1-\/project/src/VMCPMModule/keplerUniversal.h@{/home/sergio/Desktop/tt1-\/project/src/VMCPMModule/keplerUniversal.h}}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-double $\ast$$\ast$ \mbox{\hyperlink{keplerUniversal_8h_a1396125a4b26199185f1ad4e3ecca36b}{kepler\+Universal}} (int n, double r0\mbox{[}3\mbox{]}\mbox{[}n\mbox{]}, double v0\mbox{[}3\mbox{]}\mbox{[}n\mbox{]}, double time\+Vector\mbox{[}1\mbox{]}\mbox{[}n\mbox{]}, double mu)
+void \mbox{\hyperlink{keplerUniversal_8h_a550a2365ae12143b16834acde23256ff}{kepler\+Universal}} (int rows, int columns, double $\ast$$\ast$r0, double $\ast$$\ast$v0, double $\ast$time\+Vector, double mu, double $\ast$$\ast$$\ast$rA, double $\ast$$\ast$$\ast$vA)
 \item 
-double $\ast$$\ast$ \mbox{\hyperlink{keplerUniversal_8h_a4dd2c3d1dc6dc736c8814e9e67162014}{c2c3}} (int n, double psi\mbox{[}$\,$\mbox{]})
+void \mbox{\hyperlink{keplerUniversal_8h_aa1b78a54fea542bbb5a62ec1ac1deb19}{c2c3}} (double psi, double $\ast$c2, double $\ast$c3)
+\item 
+void \mbox{\hyperlink{keplerUniversal_8h_a8a7b41f0cdbecc6890106a42a7cc0dc3}{calculate\+Eliptic\+Circular\+Orbits}} (int columns, int $\ast$idx, double mu, double $\ast$time\+Vector, double $\ast$alpha, double $\ast$x0)
+\item 
+void \mbox{\hyperlink{keplerUniversal_8h_ab0ab17a0e37bb3eeb032dfabd59f01a9}{calculate\+Parabolic\+Orbits}} (int rows, int columns, int $\ast$idx, double $\ast$$\ast$r0, double $\ast$$\ast$v0, double $\ast$time\+Vector, double mu, double $\ast$x0)
+\item 
+void \mbox{\hyperlink{keplerUniversal_8h_a7a7e113196d36fcc720445039a045cef}{calculate\+Hyperbolic\+Orbits}} (int rows, int columns, int $\ast$idx, double $\ast$$\ast$r0, double $\ast$$\ast$v0, double $\ast$alpha, double $\ast$time\+Vector, double $\ast$r0\+Mag, double mu, double $\ast$x0)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{keplerUniversal_8h_a4dd2c3d1dc6dc736c8814e9e67162014}\label{keplerUniversal_8h_a4dd2c3d1dc6dc736c8814e9e67162014}} 
+\mbox{\Hypertarget{keplerUniversal_8h_aa1b78a54fea542bbb5a62ec1ac1deb19}\label{keplerUniversal_8h_aa1b78a54fea542bbb5a62ec1ac1deb19}} 
 \index{keplerUniversal.h@{keplerUniversal.h}!c2c3@{c2c3}}
 \index{c2c3@{c2c3}!keplerUniversal.h@{keplerUniversal.h}}
 \doxysubsubsection{\texorpdfstring{c2c3()}{c2c3()}}
-{\footnotesize\ttfamily double$\ast$$\ast$ c2c3 (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{double}]{psi\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
-
-Returns matrix
+{\footnotesize\ttfamily void c2c3 (\begin{DoxyParamCaption}\item[{double}]{psi,  }\item[{double $\ast$}]{c2,  }\item[{double $\ast$}]{c3 }\end{DoxyParamCaption})}
 
 
 \begin{DoxyParams}{Parameters}
-{\em n} & size of psi \\
+{\em (in)} & psi \\
 \hline
-{\em psi} & \\
+{\em (out)} & c2 \\
+\hline
+{\em (out)} & c3 \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{keplerUniversal_8h_a1396125a4b26199185f1ad4e3ecca36b}\label{keplerUniversal_8h_a1396125a4b26199185f1ad4e3ecca36b}} 
+\mbox{\Hypertarget{keplerUniversal_8h_a8a7b41f0cdbecc6890106a42a7cc0dc3}\label{keplerUniversal_8h_a8a7b41f0cdbecc6890106a42a7cc0dc3}} 
+\index{keplerUniversal.h@{keplerUniversal.h}!calculateElipticCircularOrbits@{calculateElipticCircularOrbits}}
+\index{calculateElipticCircularOrbits@{calculateElipticCircularOrbits}!keplerUniversal.h@{keplerUniversal.h}}
+\doxysubsubsection{\texorpdfstring{calculateElipticCircularOrbits()}{calculateElipticCircularOrbits()}}
+{\footnotesize\ttfamily void calculate\+Eliptic\+Circular\+Orbits (\begin{DoxyParamCaption}\item[{int}]{columns,  }\item[{int $\ast$}]{idx,  }\item[{double}]{mu,  }\item[{double $\ast$}]{time\+Vector,  }\item[{double $\ast$}]{alpha,  }\item[{double $\ast$}]{x0 }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em columns} & (in) \\
+\hline
+{\em idx} & (in) \\
+\hline
+{\em mu} & (in) \\
+\hline
+{\em time\+Vector} & (in) \\
+\hline
+{\em alpha} & (in) \\
+\hline
+{\em x0} & (in/out) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{keplerUniversal_8h_a7a7e113196d36fcc720445039a045cef}\label{keplerUniversal_8h_a7a7e113196d36fcc720445039a045cef}} 
+\index{keplerUniversal.h@{keplerUniversal.h}!calculateHyperbolicOrbits@{calculateHyperbolicOrbits}}
+\index{calculateHyperbolicOrbits@{calculateHyperbolicOrbits}!keplerUniversal.h@{keplerUniversal.h}}
+\doxysubsubsection{\texorpdfstring{calculateHyperbolicOrbits()}{calculateHyperbolicOrbits()}}
+{\footnotesize\ttfamily void calculate\+Hyperbolic\+Orbits (\begin{DoxyParamCaption}\item[{int}]{rows,  }\item[{int}]{columns,  }\item[{int $\ast$}]{idx,  }\item[{double $\ast$$\ast$}]{r0,  }\item[{double $\ast$$\ast$}]{v0,  }\item[{double $\ast$}]{alpha,  }\item[{double $\ast$}]{time\+Vector,  }\item[{double $\ast$}]{r0\+Mag,  }\item[{double}]{mu,  }\item[{double $\ast$}]{x0 }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em rows} & (in) \\
+\hline
+{\em columns} & (in) \\
+\hline
+{\em idx} & (in) \\
+\hline
+{\em r0} & (in) \\
+\hline
+{\em v0} & (in) \\
+\hline
+{\em alpha} & (in) \\
+\hline
+{\em time\+Vector} & (in) \\
+\hline
+{\em r0\+Mag} & (in) \\
+\hline
+{\em mu} & (in) \\
+\hline
+{\em x0} & (in/out) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{keplerUniversal_8h_ab0ab17a0e37bb3eeb032dfabd59f01a9}\label{keplerUniversal_8h_ab0ab17a0e37bb3eeb032dfabd59f01a9}} 
+\index{keplerUniversal.h@{keplerUniversal.h}!calculateParabolicOrbits@{calculateParabolicOrbits}}
+\index{calculateParabolicOrbits@{calculateParabolicOrbits}!keplerUniversal.h@{keplerUniversal.h}}
+\doxysubsubsection{\texorpdfstring{calculateParabolicOrbits()}{calculateParabolicOrbits()}}
+{\footnotesize\ttfamily void calculate\+Parabolic\+Orbits (\begin{DoxyParamCaption}\item[{int}]{rows,  }\item[{int}]{columns,  }\item[{int $\ast$}]{idx,  }\item[{double $\ast$$\ast$}]{r0,  }\item[{double $\ast$$\ast$}]{v0,  }\item[{double $\ast$}]{time\+Vector,  }\item[{double}]{mu,  }\item[{double $\ast$}]{x0 }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em rows} & (in) \\
+\hline
+{\em columns} & (in) \\
+\hline
+{\em idx} & (in) \\
+\hline
+{\em r0} & (in) \\
+\hline
+{\em v0} & (in) \\
+\hline
+{\em time\+Vector} & (in) \\
+\hline
+{\em mu} & (in) \\
+\hline
+{\em x0} & (in/out) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{keplerUniversal_8h_a550a2365ae12143b16834acde23256ff}\label{keplerUniversal_8h_a550a2365ae12143b16834acde23256ff}} 
 \index{keplerUniversal.h@{keplerUniversal.h}!keplerUniversal@{keplerUniversal}}
 \index{keplerUniversal@{keplerUniversal}!keplerUniversal.h@{keplerUniversal.h}}
 \doxysubsubsection{\texorpdfstring{keplerUniversal()}{keplerUniversal()}}
-{\footnotesize\ttfamily double$\ast$$\ast$ kepler\+Universal (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{double}]{r0\mbox{[}3\mbox{]}\mbox{[}n\mbox{]},  }\item[{double}]{v0\mbox{[}3\mbox{]}\mbox{[}n\mbox{]},  }\item[{double}]{time\+Vector\mbox{[}1\mbox{]}\mbox{[}n\mbox{]},  }\item[{double}]{mu }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void kepler\+Universal (\begin{DoxyParamCaption}\item[{int}]{rows,  }\item[{int}]{columns,  }\item[{double $\ast$$\ast$}]{r0,  }\item[{double $\ast$$\ast$}]{v0,  }\item[{double $\ast$}]{time\+Vector,  }\item[{double}]{mu,  }\item[{double $\ast$$\ast$$\ast$}]{rA,  }\item[{double $\ast$$\ast$$\ast$}]{vA }\end{DoxyParamCaption})}
 
-Most effecient way to propagate any type of two body orbit using kepler\textquotesingle{}s equations.
+Most efficient way to propagate any type of two body orbit using kepler\textquotesingle{}s equations.
 
 
 \begin{DoxyParams}{Parameters}
-{\em n} & matrixs column\textquotesingle{}s number \\
+{\em rows} & matrixs column\textquotesingle{}s number \\
+\hline
+{\em columns} & matrixs column\textquotesingle{}s number \\
 \hline
 {\em r0} & \mbox{[}3 x n\mbox{]} matrix, position Vector in E\+CI coordinate frame of reference \\
 \hline

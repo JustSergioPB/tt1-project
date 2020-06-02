@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vmpcm_93',['vmpcm',['../VMPCM_8c.html#a0ba95a9e575e7cb8e0f45e05739d36d1',1,'vmpcm(int n, int m, double tau[n], double x_guess[n][m], double omega1, double omega2, double errTol):&#160;VMPCM.c'],['../VMPCM_8h.html#a0ba95a9e575e7cb8e0f45e05739d36d1',1,'vmpcm(int n, int m, double tau[n], double x_guess[n][m], double omega1, double omega2, double errTol):&#160;VMPCM.c']]]
+  ['vmpcm_92',['vmpcm',['../VMPCM_8c.html#ab3c12f4c83d0c17bf889318bc3234353',1,'vmpcm(int rows, int columns, double *tau, double ***x_guess, double omega1, double omega2, double errorTolerance, double varargin):&#160;VMPCM.c'],['../VMPCM_8h.html#a1d03576c74b1cbbae59b672d2694d6ec',1,'vmpcm(int n, int columns, double *tau, double ***x_guess, double omega1, double omega2, double errorTolerance, double varargin):&#160;VMPCM.c']]]
 ];

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['linearalgebrafunctions_2ec_21',['LinearAlgebraFunctions.c',['../LinearAlgebraFunctions_8c.html',1,'']]],
-  ['linearalgebrafunctions_2eh_22',['LinearAlgebraFunctions.h',['../LinearAlgebraFunctions_8h.html',1,'']]],
-  ['logarray_23',['logArray',['../LinearAlgebraFunctions_8c.html#a0a257a511e274d1a5bc35dd063a9591f',1,'logArray(int size, double a[]):&#160;LinearAlgebraFunctions.c'],['../LinearAlgebraFunctions_8h.html#a0a257a511e274d1a5bc35dd063a9591f',1,'logArray(int size, double a[]):&#160;LinearAlgebraFunctions.c']]]
+  ['kepleruniversal_25',['keplerUniversal',['../keplerUniversal_8c.html#a550a2365ae12143b16834acde23256ff',1,'keplerUniversal(int rows, int columns, double **r0, double **v0, double *timeVector, double mu, double ***rA, double ***vA):&#160;keplerUniversal.c'],['../keplerUniversal_8h.html#a550a2365ae12143b16834acde23256ff',1,'keplerUniversal(int rows, int columns, double **r0, double **v0, double *timeVector, double mu, double ***rA, double ***vA):&#160;keplerUniversal.c']]],
+  ['kepleruniversal_2ec_26',['keplerUniversal.c',['../keplerUniversal_8c.html',1,'']]],
+  ['kepleruniversal_2eh_27',['keplerUniversal.h',['../keplerUniversal_8h.html',1,'']]]
 ];
